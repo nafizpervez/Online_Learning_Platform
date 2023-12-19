@@ -1,0 +1,10 @@
+pylance
+sqlalchemy
+fastAPI
+pydantic
+fastapi_filter
+cython
+click
+faker
+uvicorn
+black
