@@ -1,6 +1,14 @@
 # Online_Learning_Platform_BE
 
-## Build steps
+## Build Steps for the whole container (backend, postgres, pgadmin)
+
+run docker container
+
+```
+docker compose up
+```
+
+## Build steps only the backend
 
 build newer image command:
 
@@ -31,7 +39,7 @@ pytest .\app\test\test_main.py\
 
 ## run without docker
 
-start postgreg server in the cmd
+start postgreg database server in the cmd
 
 ```
 pg_ctl start -D "C:\Program Files\PostgreSQL\16\data"
