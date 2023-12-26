@@ -1,5 +1,5 @@
 from typing import Any, List
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class EnrollmentBase(BaseModel):
@@ -8,7 +8,7 @@ class EnrollmentBase(BaseModel):
     
     class Config:
         arbitrary_types_allowed = True
-        orm_mode = True
+        from_attributes = True
 
 
 class EnrollmentCreate(EnrollmentBase):
@@ -17,44 +17,50 @@ class EnrollmentCreate(EnrollmentBase):
     
     class Config:
         arbitrary_types_allowed = True
-        orm_mode = True
+        from_attributes = True
 
 
 class Enrollment(EnrollmentBase):
     course_id: int
+    
 
     class Config:
         arbitrary_types_allowed = True
-        orm_mode = True
+        from_attributes = True
 
 
 class CourseBase(BaseModel):
     title: str
     description: str
     instructor: str
-    duration: str
+    duration: int
     price: float
     class Config:
         arbitrary_types_allowed = True
-        orm_mode = True
+        from_attributes = True
 
 
 class CourseCreate(CourseBase):
     title: str
     description: str
     instructor: str
-    duration: str
+    duration: int
     price: float
     class Config:
         arbitrary_types_allowed = True
-        orm_mode = True
+        from_attributes = True
 
 
 class Course(CourseBase):
     course_id: int
+    title: str
+    description: str
+    instructor: str
+    duration: int
+    price: float
     class Config:
         arbitrary_types_allowed = True
-        orm_mode = True
+        from_attributes = True
         
 
 

@@ -3,8 +3,12 @@ sqlalchemy
 fastAPI
 pydantic
 fastapi_filter
+fastapi_sa_orm_filter
 cython
 click
 faker
 uvicorn
 black
+psycopg2
+httpx
+pytest
