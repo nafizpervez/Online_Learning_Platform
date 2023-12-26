@@ -11,14 +11,13 @@ class Course(Base):
     
     __tablename__ = "courses"
     
-    course_id = Column(Integer, primary_key=True)
-    title = Column(String,nullable=False)
-    description =  Column(String,nullable=False)
-    instructor =  Column(String,nullable=False)
-    duration =  Column(String, nullable=False)
-    price = Column(Float, nullable=False)
+    course_id = Column(Integer, primary_key=True, index = True)
+    title = Column(String,nullable=False, index = True)
+    description =  Column(String,nullable=False, index = True)
+    instructor =  Column(String,nullable=False, index = True)
+    duration =  Column(Integer, nullable=False, index = True)
+    price = Column(Float, nullable=False, index = True)
     
-    enrolled = relationship("Enrollment", back_populates = "owner")
     enrollments = relationship("Enrollment", back_populates="owner")
 
 
@@ -28,12 +27,13 @@ class Enrollment(Base):
     
     __tablename__ = "enrollments"
 
-    course_id = Column(Integer, primary_key=True)
+    course_id = Column(Integer, primary_key=True, index = True)
     
-    studentName =  Column(String, nullable=False)
-    enrollmentDate= Column(String, nullable=False)
+    studentName =  Column(String, nullable=False, index = True)
+    enrollmentDate= Column(String, nullable=False, index = True)
     
     owner_id = Column(Integer, ForeignKey("courses.course_id"))
+    
     owner = relationship("Course", back_populates="enrollments");
     enrolled: relationship('Course', backref = 'enrollments', lazy = True, cascade = "all, delete-orphan")
 
