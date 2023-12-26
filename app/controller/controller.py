@@ -1,8 +1,8 @@
 # crud functionality
-from fastapi import FastAPI, HTTPException, Query, Depends
+from fastapi import HTTPException, Query, Depends
 from sqlalchemy.orm import session
 from app.models import models
-from sqlalchemy import func, select, Integer, delete
+from sqlalchemy import func, delete
 from app.schemas import schemas
 
 

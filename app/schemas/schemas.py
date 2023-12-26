@@ -1,5 +1,4 @@
-from typing import Any, List
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 
 class EnrollmentBase(BaseModel):
@@ -75,14 +74,3 @@ def time_in_minutes(sec):
     print("seconds value in hours:", hour)
     print("seconds value in minutes:", min)
     return "%02d:%02d" % (hour, min)
-
-
-# adding dollar sign
-# a =
-# b =
-
-# a_dollars = "${:.2f}".format(a)  # make strings with leading dollar sign
-# b_dollars = "${:.2f}".format(b)
-
-# a_padded = "foo:{:>8}".format(a_dollars)  # insert them into strings with padding
-# b_padded = "foo:{:>8}".format(b_dollars)

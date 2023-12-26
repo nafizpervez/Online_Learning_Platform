@@ -1,4 +1,3 @@
-from typing import Any, List
 from sqlalchemy import Column, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import declarative_base, relationship
 
