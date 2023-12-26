@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 # )
 
 
-engine = create_engine('postgresql+psycopg2://postgres:4321@127.0.0.1/online_learning_db')
+engine = create_engine('postgresql+psycopg2://postgres:postgres@host.docker.internal/online_learning_db')
 
 SessionLocal = sessionmaker(autocommit=False, bind=engine)
 

@@ -11,11 +11,6 @@ docker build -t  online_learning_image .
 docker run command:
 
 ```
-docker run -d --name demo_python --network bridge online_learning_image
-
-```
-
-```
 docker run -d --name demo_python -p 8000:8000 online_learning_image
 
 ```
