@@ -3,6 +3,14 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app.database.database import SessionLocal
 from sqlalchemy.orm import session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+# SQLALCHEMY_DATABASE_URL = "sqlite:///database.db"
+
+# engine = create_engine(
+#     SQLALCHEMY_DATABASE_URL, echo=True, connect_args={"check_same_thread": False}
+# )
 
 # Create a TestClient instance for testing the FastAPI app
 client = TestClient(app)
