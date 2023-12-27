@@ -17,7 +17,10 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "echo build"
+                    sh "echo build started"
+                    // sh "echo building backend"
+                    sh "docker compose build"
+                    sh "echo build ended"
                     // sh "docker compose up --build backend || true"
                     // sh "docker compose up || true"
                     // sh "docker rm container || true"
@@ -30,7 +33,9 @@ pipeline {
         stage('Unit_test') {
             steps {
                 script {
-                    sh "echo unit_test"
+                    sh "echo unit test started"
+                    sh "pytest ./app/test/test_main.py"
+                    sh "echo unit test ended"
                     // sh "docker compose up --build backend || true"
                     // sh "docker compose up || true"
                     // sh "docker rm container || true"
