@@ -19,7 +19,7 @@ pipeline {
                 script {
                     sh "echo build started"
                     // sh "echo building backend"
-                    sh "docker compose build"
+                    sh "docker-compose build"
                     sh "echo build ended"
                     // sh "docker compose up --build backend || true"
                     // sh "docker compose up || true"
