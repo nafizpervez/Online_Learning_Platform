@@ -7,7 +7,7 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: 4321
       POSTGRES_DB: online_learning_db
     volumes:
       - postgres-data:/var/lib/postgresql/data
