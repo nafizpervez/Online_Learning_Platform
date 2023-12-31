@@ -4,29 +4,24 @@ from pydantic import BaseModel
 class EnrollmentBase(BaseModel):
     studentName: str
     enrollmentDate: str
-    
     class Config:
         arbitrary_types_allowed = True
         from_attributes = True
-
 
 class EnrollmentCreate(EnrollmentBase):
     studentName: str
     enrollmentDate: str
-    
     class Config:
         arbitrary_types_allowed = True
         from_attributes = True
-
 
 class Enrollment(EnrollmentBase):
+    studentName: str
+    enrollmentDate: str
     course_id: int
-    
-
     class Config:
         arbitrary_types_allowed = True
         from_attributes = True
-
 
 class CourseBase(BaseModel):
     title: str
@@ -38,7 +33,6 @@ class CourseBase(BaseModel):
         arbitrary_types_allowed = True
         from_attributes = True
 
-
 class CourseCreate(CourseBase):
     title: str
     description: str
@@ -48,7 +42,6 @@ class CourseCreate(CourseBase):
     class Config:
         arbitrary_types_allowed = True
         from_attributes = True
-
 
 class Course(CourseBase):
     course_id: int
@@ -60,17 +53,3 @@ class Course(CourseBase):
     class Config:
         arbitrary_types_allowed = True
         from_attributes = True
-        
-
-
-
-# function for time in
-def time_in_minutes(sec):
-    sec = sec % (24 * 3600)
-    hour = sec // 3600
-    sec %= 3600
-    min = sec // 60
-    sec %= 60
-    print("seconds value in hours:", hour)
-    print("seconds value in minutes:", min)
-    return "%02d:%02d" % (hour, min)

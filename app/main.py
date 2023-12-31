@@ -1,23 +1,20 @@
-from fastapi import FastAPI, HTTPException, Query
-from fastapi import Depends, FastAPI, HTTPException
-from sqlalchemy.orm import session
+from fastapi import FastAPI, HTTPException, Query, Depends, FastAPI, HTTPException
 from app.models import models
 from app.schemas import schemas
 from app.controller import controller
-from app.database.database import SessionLocal, engine
+from app.database.database import  create_database_connection
 
+engine, session = create_database_connection(db_type='postgresql')
 
-models.Base.metadata.create_all(bind=engine)
-
-app = FastAPI()
-
-# dependency get db to insert data
 def get_db():
-    db = SessionLocal()
+    models.Base.metadata.create_all(bind=engine)
+    db = session()
     try:
         yield db
     finally:
         db.close()
+
+app = FastAPI()
 
 # insert new courses into db and getting course by title
 @app.post("/create_courses", response_model=schemas.Course, status_code=201)
@@ -78,16 +75,14 @@ def view_all_enrollments(skip: int = 0, limit: int = 100, db: session = Depends(
         raise HTTPException(status_code=404, detail="No Courses Found")
     return enrollmets
 
-
-#drop all the courses
-@app.post("/drop_all_courses")
-def drop_all_courses(db: session = Depends(get_db)):
-    controller.drop_all_courses(db)
-    return {"message": "All values dropped from the courses table"}
-
 #drop all the Enrollments
 @app.post("/drop_all_enrollments")
 def drop_all_enrollments(db: session = Depends(get_db)):
     controller.drop_all_enrollments(db)
     return {"message": "All values dropped from the enrollments table"}
 
+#drop all the courses
+@app.post("/drop_all_courses")
+def drop_all_courses(db: session = Depends(get_db)):
+    controller.drop_all_courses(db)
+    return {"message": "All values dropped from the courses table"}
