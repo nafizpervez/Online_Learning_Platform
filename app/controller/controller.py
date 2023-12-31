@@ -1,10 +1,74 @@
-# crud functionality
 from fastapi import HTTPException, Query, Depends
 from sqlalchemy.orm import session
 from app.models import models
 from sqlalchemy import func, delete
 from app.schemas import schemas
 
+##-------------Validation Starts------------------##
+
+def validate_course_id(course_id: int = Query(None, title="CourseId")):
+    if course_id is not None and not isinstance(course_id, int):
+        raise HTTPException(status_code=400, detail="Course_Id must be an Integer Number")
+    return course_id
+
+def validate_title(title: str = Query(None, title="Title")):
+    if title is int :
+        raise HTTPException(status_code=400, detail="Title must be a Title String")
+    if title is float :
+        raise HTTPException(status_code=400, detail="Title must be a Title String")
+    if title and not isinstance(title, str):
+        raise HTTPException(status_code=400, detail="Title must be a Title String")
+    return title
+
+def validate_description(description: str = Query(None, title="Description")):
+    if description is int :
+        raise HTTPException(status_code=400, detail="Description must be a description String")
+    if description is float :
+        raise HTTPException(status_code=400, detail="Description must be a description String")
+    if description and not isinstance(description, str):
+        raise HTTPException(status_code=400, detail="Description must be a description String")
+    return description
+
+def validate_instructor(instructor: str = Query(None, title="Instructor")):
+    if instructor is int :
+        raise HTTPException(status_code=400, detail="Instructor must be a Name")
+    if instructor is float :
+        raise HTTPException(status_code=400, detail="Instructor must be a Name")
+    if instructor and not isinstance(instructor, str):
+        raise HTTPException(status_code=400, detail="Instructor must be a Name")
+    return instructor
+
+def validate_duration(duration: int = Query(None, title="Duration")):
+    if duration is not None and not isinstance(duration, int):
+        raise HTTPException(status_code=400, detail="Duration must be an Integer Number of Minutes")
+    return duration
+
+def validate_price(price: float = Query(None, title="Price")):
+    if price is not None and not isinstance(price, (float)):
+        raise HTTPException(status_code=400, detail="Price must be a float")
+    if price is not None and price < 0.0:
+        raise HTTPException(status_code=400, detail="Price must be a non-negative float")
+    return price
+
+def validate_studentName(studentName: str = Query(None, title="StudentName")):
+    if studentName is int :
+        raise HTTPException(status_code=400, detail="Student Name must be a Name String")
+    if studentName is float :
+        raise HTTPException(status_code=400, detail="Student Name must be a Name String")
+    if studentName and not isinstance(studentName, str):
+        raise HTTPException(status_code=400, detail="Student Name must be a Name String")
+    return studentName
+
+def validate_enrollmentDate(enrollmentDate: str = Query(None, title="EnrollmentDate")):
+    if enrollmentDate is int :
+        raise HTTPException(status_code=400, detail="Enrollment Date must be a Date String")
+    if enrollmentDate is float :
+        raise HTTPException(status_code=400, detail="Enrollment Date must be a Date String")
+    if enrollmentDate and not isinstance(enrollmentDate, str):
+        raise HTTPException(status_code=400, detail="Enrollment Date must be a Date String")
+    return enrollmentDate
+
+##-------------Validation Ends------------------##
 
 # get course by id
 def get_course_by_id(db: session, course_id: int):
@@ -67,30 +131,6 @@ def drop_all_enrollments(db: session):
     db.execute(delete(models.Enrollment))
     db.commit()
 
-
-#Validate filter_courses
-def validate_instructor(instructor: str = Query(None, title="Instructor")):
-    if instructor is int :
-        raise HTTPException(status_code=400, detail="Instructor must be a Name")
-    if instructor is float :
-        raise HTTPException(status_code=400, detail="Instructor must be a Name")
-    if instructor and not isinstance(instructor, str):
-        raise HTTPException(status_code=400, detail="Instructor must be a Name")
-    return instructor
-
-def validate_duration(duration: int = Query(None, title="Duration")):
-    if duration is not None and not isinstance(duration, int):
-        raise HTTPException(status_code=400, detail="Duration must be an Number of Minutes")
-    return duration
-
-def validate_price(price: float = Query(None, title="Price")):
-    if price is not None and not isinstance(price, (float)):
-        raise HTTPException(status_code=400, detail="Price must be a float")
-    if price is not None and price < 0.0:
-        raise HTTPException(status_code=400, detail="Price must be a non-negative float")
-    return price
-
-
 #filter_courses
 def get_filtered_courses(db: session, 
                         instructor: str = Depends(validate_instructor), 
@@ -108,4 +148,3 @@ def get_filtered_courses(db: session,
     if not filtered_courses:
         raise HTTPException(status_code=404, detail="No courses found with the specified criteria")
     return filtered_courses
-
