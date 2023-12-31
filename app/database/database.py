@@ -12,4 +12,4 @@ def create_database_connection(db_type: str = 'postgresql'):
         
     engine = create_engine(DATABASE_URL)
     session = sessionmaker(autocommit=False, bind=engine)
-    return engine, session 
+    return engine, session
