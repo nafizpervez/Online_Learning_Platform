@@ -1,14 +1,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-# SQLALCHEMY_DATABASE_URL = "sqlite:///database.db"
-
-# engine = create_engine(
-#     SQLALCHEMY_DATABASE_URL, echo=True, connect_args={"check_same_thread": False}
-# )
-
-
-engine = create_engine('postgresql+psycopg2://postgres:postgres@host.docker.internal/online_learning_db')
-
-SessionLocal = sessionmaker(autocommit=False, bind=engine)
-
+def create_database_connection(db_type: str = 'postgresql'):
+    match (db_type):
+        case ('postgresql'):
+            DATABASE_URL = 'postgresql+psycopg2://postgres:4321@host.docker.internal/online_learning_db'
+        case ('sqlite'):
+            DATABASE_URL = "sqlite:///./test/test_database/test_database.db"
+        case (_):
+            pass
+        
+    engine = create_engine(DATABASE_URL)
+    session = sessionmaker(autocommit=False, bind=engine)
+    return engine, session
