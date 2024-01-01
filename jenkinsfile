@@ -1,24 +1,24 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    sh "echo checkout"
-                    // sh "docker compose up --build backend || true"
-                    // sh "docker compose up || true"
-                    // sh "docker rm container || true"
-                    // def dockerImage = 'localhost:5000/my-image'
-                    // docker.image(dockerImage).pull()
-                    // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
-                }
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         script {
+        //             sh "echo checkout"
+        //             // sh "docker compose up --build backend || true"
+        //             // sh "docker compose up || true"
+        //             // sh "docker rm container || true"
+        //             // def dockerImage = 'localhost:5000/my-image'
+        //             // docker.image(dockerImage).pull()
+        //             // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
+        //         }
+        //     }
+        // }
         stage('Unit_test') {
             steps {
                 script {
                     sh "echo unit test started"
-                    // sh "pytest test/test_main.py"
+                    sh "pytest test/test_main.py"
                     sh "echo unit test ended"
                     // sh "docker compose up --build backend || true"
                     // sh "docker compose up || true"
@@ -45,31 +45,31 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            steps {
-                script {
-                    sh "echo deploy"
-                    // sh "docker compose up --build backend || true"
-                    // sh "docker compose up || true"
-                    // sh "docker rm container || true"
-                    // def dockerImage = 'localhost:5000/my-image'
-                    // docker.image(dockerImage).pull()
-                    // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
-                }
-            }
-        }
-        stage('Completion') {
-            steps {
-                script {
-                    sh "echo completion"
-                    // sh "docker compose up --build backend || true"
-                    // sh "docker compose up || true"
-                    // sh "docker rm container || true"
-                    // def dockerImage = 'localhost:5000/my-image'
-                    // docker.image(dockerImage).pull()
-                    // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
-                }
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         script {
+        //             sh "echo deploy"
+        //             // sh "docker compose up --build backend || true"
+        //             // sh "docker compose up || true"
+        //             // sh "docker rm container || true"
+        //             // def dockerImage = 'localhost:5000/my-image'
+        //             // docker.image(dockerImage).pull()
+        //             // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
+        //         }
+        //     }
+        // }
+        // stage('Completion') {
+        //     steps {
+        //         script {
+        //             sh "echo completion"
+        //             // sh "docker compose up --build backend || true"
+        //             // sh "docker compose up || true"
+        //             // sh "docker rm container || true"
+        //             // def dockerImage = 'localhost:5000/my-image'
+        //             // docker.image(dockerImage).pull()
+        //             // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
+        //         }
+        //     }
+        // }
     }
 }
