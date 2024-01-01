@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+#database adapter to select multiple database, one for testing (sqlute) and one for the app (postgres)
 def create_database_connection(db_type: str = 'postgresql'):
     match (db_type):
         case ('postgresql'):
