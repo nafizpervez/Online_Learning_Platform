@@ -5,8 +5,13 @@ pipeline {
                 steps {
                     script {
                         sh "echo unit test started"
-                        sh "apt-get update"
-                        // sh "apt-get install python3 python3-pip"
+                        sh '''
+                            apt-get update
+                            apt-get install python3 python3-pip
+                            python3 --version
+                            pip3 --version
+
+                        '''
                         sh "echo unit test ended"
                         // sh "docker compose up --build backend || true"
                         // sh "docker compose up || true"
