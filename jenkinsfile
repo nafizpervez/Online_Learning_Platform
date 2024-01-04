@@ -4,14 +4,13 @@ pipeline {
         stage('Dependencies') {
                 steps {
                     script {
-                        sh "Python3 install started..."
+                        sh "echo Python3 install started..."
                         sh '''
                             apt-get update
-                            apt install python3
+                            apt-get install python3
                             python3 --version
-                            pip --version
                         '''
-                        sh "Python3 install ended"
+                        sh "echo Python3 install ended"
                         // sh "docker compose up --build backend || true"
                         // sh "docker compose up || true"
                         // sh "docker rm container || true"
