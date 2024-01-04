@@ -1,23 +1,26 @@
 pipeline {
     agent any
     stages{
-        stage('Dependencies') {
+        stage('Installing Python3') {
                 steps {
                     script {
                         sh "echo Python3 install started..."
                         sh '''
                             apt-get update
                             apt-get install python3 python3-pip
-                            python3 --version
-                            apt autoremove
                         '''
                         sh "echo Python3 install ended"
-                        // sh "docker compose up --build backend || true"
-                        // sh "docker compose up || true"
-                        // sh "docker rm container || true"
-                        // def dockerImage = 'localhost:5000/my-image'
-                        // docker.image(dockerImage).pull()
-                        // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
+                    }
+                }
+        }
+        stage('Installing Docker') {
+                steps {
+                    script {
+                        sh "echo Docker install started..."
+                        sh '''
+                            apt-get update
+                        '''
+                        sh "echo Docker install ended"
                     }
                 }
         }
