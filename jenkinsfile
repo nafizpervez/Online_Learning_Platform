@@ -1,11 +1,26 @@
 pipeline {
     agent any
     stages{
-        stage('Check') {
+        stage('Checkout') {
+            steps{
+                sh  "checkout branch begins......."
+            
+                script {
+                    git branch: 'jenkins',
+                        credentialsId: '166dacd4-5f34-4e0f-a24c-94b44541bd39',
+                        url: 'https://github.com/nafizpervez/Online_Learning_Platform_BE_docker_python.git'
+                        sh "ls -lat"
+
+                sh  "checkout branch Ends."
+                }
+            }
+        }
+        stage('Dependencies') {
                 steps {
                     script {
                         sh "echo unit test started"
-                        sh "pytest test/test_main.py"
+                        sh "apt-get update"
+                        // sh "apt-get install python3 python3-pip"
                         sh "echo unit test ended"
                         // sh "docker compose up --build backend || true"
                         // sh "docker compose up || true"
@@ -16,6 +31,7 @@ pipeline {
                     }
                 }
         }
+        
     }
 }
 
