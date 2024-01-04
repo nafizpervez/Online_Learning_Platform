@@ -1,20 +1,22 @@
 pipeline {
     agent any
-    stage('Check') {
-            steps {
-                script {
-                    sh "echo unit test started"
-                    sh "pytest test/test_main.py"
-                    sh "echo unit test ended"
-                    // sh "docker compose up --build backend || true"
-                    // sh "docker compose up || true"
-                    // sh "docker rm container || true"
-                    // def dockerImage = 'localhost:5000/my-image'
-                    // docker.image(dockerImage).pull()
-                    // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
+    stages{
+        stage('Check') {
+                steps {
+                    script {
+                        sh "echo unit test started"
+                        sh "pytest test/test_main.py"
+                        sh "echo unit test ended"
+                        // sh "docker compose up --build backend || true"
+                        // sh "docker compose up || true"
+                        // sh "docker rm container || true"
+                        // def dockerImage = 'localhost:5000/my-image'
+                        // docker.image(dockerImage).pull()
+                        // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
+                    }
                 }
-            }
         }
+    }
 }
 
 
