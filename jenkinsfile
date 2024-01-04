@@ -9,16 +9,10 @@ pipeline {
                             apt-get update
                             apt install python3
                             python3 --version
+                            pip --version
+
                         '''
                         sh "Python3 install ended"
-
-                        sh "Python3-pip install started..."
-                        sh '''
-                            apt-get update
-                            apt install python3-pip
-                            pip --version
-                        '''
-                        sh "Python3-pip install ended"
                         // sh "docker compose up --build backend || true"
                         // sh "docker compose up || true"
                         // sh "docker rm container || true"
