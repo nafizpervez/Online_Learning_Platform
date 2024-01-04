@@ -4,21 +4,21 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    sh echo: "checkout branch begins......"
+                    sh  "checkout branch begins......"
 
                     git branch: 'jenkins',
                         credentialsId: 'online_learning_platform_jenkins_access_token',
                         url: 'https://github.com/nafizpervez/Online_Learning_Platform_BE_docker_python.git'
                         sh "ls -lat"
 
-                    sh echo: "checkout branch Ends."
+                    sh  "checkout branch Ends."
                 }
             }
         }
         stage('Setup') {
             steps {
                 dir('.') {
-                    sh echo: "Installing Dependencies....."
+                    sh  "Installing Dependencies....."
                     sh 'apt-get install python3'
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
         stage('virtual_Env') {
             steps {
                 dir('.') {
-                    sh echo: "Creating Virtual Environment"
+                    sh  "Creating Virtual Environment"
                     sh 'python3 -m venv ./venv'
                 }
             }
@@ -34,23 +34,23 @@ pipeline {
         stage('Unit_test') {
             steps {
                 dir('.') {
-                    sh echo: "Virtual Environment Starts....."
+                    sh "Virtual Environment Starts....."
                     sh '. ./venv/bin/activate'
                     sh 'python3 -m install -r usr/code/requirements.txt'
 
-                    sh echo:"pytest begins...."
+                    sh "pytest begins...."
                     sh "python3 -m pytest usr/code/test/test_main.py"
-                    sh echo:"pytest ends."
+                    sh "pytest ends."
                 }
             }
         }
         stage('Build') {
             steps {
                 script {
-                    // sh echo: "build started"
+                    // sh  "build started"
                     // // sh "echo building backend"
                     // // sh "docker compose up"
-                    // sh echo: "build ended"
+                    // sh  "build ended"
                     // sh "docker compose up --build backend || true"
                     // sh "docker compose up || true"
                     // sh "docker rm container || true"
