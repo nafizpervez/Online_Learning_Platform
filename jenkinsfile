@@ -1,20 +1,6 @@
 pipeline {
     agent any
     stages{
-        stage('Checkout') {
-            steps{
-                sh  "checkout branch begins......."
-            
-                // script {
-                //     git branch: 'master',
-                //         credentialsId: 'GIT_AUTH_TOKEN',
-                //         url: 'https://github.com/nafizpervez/Online_Learning_Platform_BE_docker_python.git'
-                //         sh "ls -lat"
-
-                sh  "checkout branch Ends."
-                }
-            }
-        }
         stage('Dependencies') {
                 steps {
                     script {
