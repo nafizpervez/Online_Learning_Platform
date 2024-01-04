@@ -2,15 +2,17 @@ pipeline {
     agent any
     stages {
         stage('Checkout') {
-            steps {
-                sh  "checkout branch begins......"
-
-                git branch: 'jenkins',
-                    credentialsId: 'online_learning_platform_jenkins_access_token',
-                    url: 'https://github.com/nafizpervez/Online_Learning_Platform_BE_docker_python.git'
-                    sh "ls -lat"
+            steps{
+                sh  "checkout branch begins......."
+            
+                // script {
+                //     git branch: 'jenkins',
+                //         credentialsId: 'online_learning_platform_jenkins_access_token',
+                //         url: 'https://github.com/nafizpervez/Online_Learning_Platform_BE_docker_python.git'
+                //         sh "ls -lat"
 
                 sh  "checkout branch Ends."
+                }
             }
         }
         stage('Setup_Python3') {
