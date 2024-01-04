@@ -7,7 +7,7 @@ pipeline {
             
                 script {
                     git branch: 'master',
-                        credentialsId: 'online_learning_platform_jenkins_access_token',
+                        credentialsId: 'GIT_AUTH_TOKEN',
                         url: 'https://github.com/nafizpervez/Online_Learning_Platform_BE_docker_python.git'
                         sh "ls -lat"
 
