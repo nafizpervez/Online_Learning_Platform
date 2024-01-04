@@ -4,15 +4,21 @@ pipeline {
         stage('Dependencies') {
                 steps {
                     script {
-                        sh "echo unit test started"
+                        sh "Python3 install started..."
                         sh '''
                             apt-get update
                             apt install python3.11
                             python3 --version
-                            
-
                         '''
-                        sh "echo unit test ended"
+                        sh "Python3 install ended"
+
+                        sh "Python3-pip install started..."
+                        sh '''
+                            apt-get update
+                            apt install python3-pip
+                            pip --version
+                        '''
+                        sh "Python3-pip install ended"
                         // sh "docker compose up --build backend || true"
                         // sh "docker compose up || true"
                         // sh "docker rm container || true"
