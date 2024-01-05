@@ -33,7 +33,7 @@ pipeline {
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
                             apt-get install -y postgresql
                             pip install -U psycopg2-binary
-                            apt-get install -y python-psycopg2
+                            apt-get build-dep psycopg2
                             apt-get install -y libpq-dev
                             pip install -U sqlalchemy
                             pip install -U httpx 
