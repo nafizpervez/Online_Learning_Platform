@@ -35,7 +35,6 @@ pipeline {
                             pip install -U wheel 
                             apt-get install -y libpq-dev
                             pip install -U psycopg2-binary
-                            pip install -U psycopg2
                             pip install -U sqlalchemy
                             pip install -U httpx 
                             pip install -U fastapi
