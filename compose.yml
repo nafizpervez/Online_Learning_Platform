@@ -30,7 +30,7 @@ services:
       - "8000:8000"
 
   jenkins:
-    image: jenkins/jenkins:2.426.2
+    image: jenkins/jenkins:lts
     restart: always
     privileged: true
     user: root

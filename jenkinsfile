@@ -1,7 +1,23 @@
 pipeline {
     agent any
     stages{
-        stage('Installing Python3') {
+        stage('Git Checkout') {
+                steps {
+                    script {
+                            sh "echo checkout begins......."
+                            
+                            sh "apt-get install -y git"
+
+                            git credentialsId: 'GIT_AUTH_TOKEN', url: 'https://github.com/nafizpervez/Online_Learning_Platform_BE_docker_python.git'
+                            sh "ls -lart ./*" 
+                            sh "git branch -a"
+                            sh "git checkout master"
+
+                            sh "echo checkout SUCCESSFUL"
+                            }
+                }
+        }
+        stage('Installing Dependencies') {
                 steps {
                     script {
                         sh "echo Python3 install started..."
@@ -13,17 +29,40 @@ pipeline {
                     }
                 }
         }
-        stage('Installing venv') {
+        stage('Installing Dependencies') {
+                steps {
+                    script {
+                        sh "echo Python3 install started..."
+                        sh '''
+                            #!/bin/bash
+                            umask 022
+                            apt-get update
+                            apt-get install -y python3
+                        '''
+                        sh "echo Python3 install ended"
+                    }
+                }
+        }
+        stage('Initiating Virtual Enronment') {
                 steps {
                         sh "echo venv installing..."
                         sh '''
-                            umask 022
-                            #!/bin/bash
                             apt-get install -y python3-venv
                             python3 -m venv jenkins_venv
                             . ./jenkins_venv/bin/activate
-                            python --version
-                            pip --version
+                            '''
+                        sh "echo venv ACTIVATED..."
+                        }
+        }
+
+
+
+
+
+        stage ('Tools Installation'){
+                steps {
+                        sh "echo venv installing..."
+                        sh '''
                             pip install docker
                             pip install wheel
                             echo "Cython<3" > cython_constraint.txt
@@ -34,139 +73,73 @@ pipeline {
                             pip install -U sqlalchemy
                             pip install -U httpx 
                             pip install -U fastapi
+                        '''
+                        sh "echo installation Complete"
+                }
+        }
+
+
+
+
+
+        stage ('Unit Testing'){
+                steps{
+                        sh "echo unit testing..."
+                        sh '''
                             pytest /usr/code/test/test_main.py
                             pyenv virtualenv-delete jenkins_venv
-
                         '''
-                        sh "venv installed"
+                        sh "echo unit test SUCCESS"
                 }
-                 
         }
-        stage('Unit Test') {
+
+
+
+
+
+
+
+
+
+
+
+        stage('Database') {
                 steps {
                     script {
-                        sh "echo docker-compose, pytest installing..."
+                        sh "echo database initiating..."
                         sh '''
-                            pytest 
+                            docker-compose build postgres
+                            docker-compose build pgadmin
                         '''
-                        sh "docker-compose, pytest installted"
+                        sh "echo datavase SUCCESSFULLY created"
+                    }
+                }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        stage('Build') {
+                steps {
+                    script {
+                        sh "echo building back-end..."
+                        sh '''
+                            docker-compose build backend
+                            docker-compose build jenkins
+                        '''
+                        sh "echo building SUCCESSFULLY done"
                     }
                 }
         }
         
     }
 }
-
-
-// pipeline {
-//     agent any
-//     stages {
-//         stage('Checkout') {
-//             steps{
-//                 sh  "checkout branch begins......."
-            
-//                 // script {
-//                 //     git branch: 'jenkins',
-//                 //         credentialsId: 'online_learning_platform_jenkins_access_token',
-//                 //         url: 'https://github.com/nafizpervez/Online_Learning_Platform_BE_docker_python.git'
-//                 //         sh "ls -lat"
-
-//                 sh  "checkout branch Ends."
-//                 }
-//             }
-//         }
-//         stage('Setup_Python3') {
-//             steps {
-//                 sh  "Installing python3....."
-//                 sh  'apt-get install python3'
-//                 sh  "Python3 installation Ends."
-                
-//             }
-//         }
-//         stage('virtual_Env') {
-//             steps {
-//                 sh "Creating Virtual Environment"
-//                 sh 'python3 -m venv ./venv'
-
-//                 sh "Virtual Environment Starts....."
-//                 sh '. ./venv/bin/activate'
-//                 sh 'python3 -m install -r usr/code/requirements.txt'
-                
-//             }
-//         }
-//         stage('Unit_test') {
-//             steps {
-//                 script {
-//                     sh "echo unit test started"
-//                     // sh "pytest test/test_main.py"
-//                     sh "echo unit test ended"
-//                     // sh "docker compose up --build backend || true"
-//                     // sh "docker compose up || true"
-//                     // sh "docker rm container || true"
-//                     // def dockerImage = 'localhost:5000/my-image'
-//                     // docker.image(dockerImage).pull()
-//                     // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
-//                 }
-//             }
-//         }
-//         stage('Build') {
-//             steps {
-//                 script {
-//                     sh "echo build started"
-//                     // sh "echo building backend"
-//                     // sh "docker compose up"
-//                     sh "echo build ended"
-//                     // sh "docker compose up --build backend || true"
-//                     // sh "docker compose up || true"
-//                     // sh "docker rm container || true"
-//                     // def dockerImage = 'localhost:5000/my-image'
-//                     // docker.image(dockerImage).pull()
-//                     // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
-//                 }
-//             }
-//         }
-        
-//         stage('Run') {
-//             steps {
-//                 script {
-//                     // sh "echo unit test started"
-//                     // // sh "pytest test/test_main.py"
-//                     // sh "echo unit test ended"
-//                     // sh "docker compose up --build backend || true"
-//                     // sh "docker compose up || true"
-//                     // sh "docker rm container || true"
-//                     // def dockerImage = 'localhost:5000/my-image'
-//                     // docker.image(dockerImage).pull()
-//                     // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
-//                 }
-//             }
-//         }
-        
-//         // stage('Deploy') {
-//         //     steps {
-//         //         script {
-//         //             sh "echo deploy"
-//         //             // sh "docker compose up --build backend || true"
-//         //             // sh "docker compose up || true"
-//         //             // sh "docker rm container || true"
-//         //             // def dockerImage = 'localhost:5000/my-image'
-//         //             // docker.image(dockerImage).pull()
-//         //             // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
-//         //         }
-//         //     }
-//         // }
-//         // stage('Completion') {
-//         //     steps {
-//         //         script {
-//         //             sh "echo completion"
-//         //             // sh "docker compose up --build backend || true"
-//         //             // sh "docker compose up || true"
-//         //             // sh "docker rm container || true"
-//         //             // def dockerImage = 'localhost:5000/my-image'
-//         //             // docker.image(dockerImage).pull()
-//         //             // def containerId = docker.image(dockerImage).run("--user root --rm -it -v ${pwd()}:/mnt --name container")
-//         //         }
-//         //     }
-//         // }
-//     }
-// }
