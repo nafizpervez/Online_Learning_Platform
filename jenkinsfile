@@ -13,15 +13,16 @@ pipeline {
                     }
                 }
         }
-        stage('Installing Docker') {
+        stage('Starting Venv') {
                 steps {
                     script {
-                        sh "echo Docker install started..."
+                        sh "echo python3 starting venv..."
                         sh '''
                             apt-get update
-                            pip install -y docker docker-compose
+                            python3 -m venv ./venv
+                            . ./venv/bin/activate
                         '''
-                        sh "echo Docker install ended"
+                        sh "echo venv activated"
                     }
                 }
         }
