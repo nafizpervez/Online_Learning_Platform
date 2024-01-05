@@ -35,7 +35,7 @@ pipeline {
                             pip install -U httpx 
                             pip install -U fastapi
                             pytest /usr/code/test/test_main.py
-                            deactivate
+                            pyenv virtualenv-delete jenkins_venv
 
                         '''
                         sh "venv installed"
