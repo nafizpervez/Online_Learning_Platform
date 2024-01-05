@@ -40,7 +40,7 @@ pipeline {
                             pip install -U fastapi
                             pip install -U pytest
                             pytest /usr/code/test/test_main.py
-                            docker compose build
+                            docker-compose build
                         '''
                         sh "echo Test SUCCESSFULLY done"
                 }
