@@ -38,6 +38,7 @@ pipeline {
                             pip install -U sqlalchemy
                             pip install -U httpx 
                             pip install -U fastapi
+                            pip install -U pytest
                             pytest /usr/code/test/test_main.py
                             docker compose build
                         '''
