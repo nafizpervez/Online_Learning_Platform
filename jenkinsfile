@@ -17,7 +17,7 @@ pipeline {
                             }
                 }
         }
-        stage ('Environment Setup'){
+        stage ('ENVIRONMENT SETUP'){
                 steps {
                         sh "echo setuping environment......."
                         sh '''
@@ -31,10 +31,9 @@ pipeline {
                             pip install --upgrade pip
                             '''
                         sh "echo environment setup SUCCESS......."
-
                 }
         }
-        stage('Building Testing Tools'){
+        stage('TESTING TOOLS'){
                 steps {
                         sh "echo testing tools building......."
                         sh '''
@@ -51,21 +50,15 @@ pipeline {
                         sh "echo testing tool build SUCCESS"
                 }
         }
-        stage('Api-End Point/Unit Testing'){
+        stage('UNIT TESTING'){
                 steps {
                         sh "echo unit testing......."
                         sh '''
                             . ./jenkins_venv/bin/activate
                             pytest /usr/code/test/test_main.py
                         '''
-                        sh "unit testing SUCCESS"
+                        sh "echo UNIT TEST SUCCESS"
                 }
         }
-    }
-
-
-
-
-    
-                          
+    }                        
 }
