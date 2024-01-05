@@ -9,6 +9,8 @@ click
 faker
 uvicorn
 black
+psycopg2-binary
+libpq-dev
 psycopg2
 httpx
 pytest
