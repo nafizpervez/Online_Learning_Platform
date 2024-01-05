@@ -1,4 +1,4 @@
-version: '3.12.02' #Python Version + Application Version
+#Python Version + Application Version
 services:
   postgres:
     image: postgres

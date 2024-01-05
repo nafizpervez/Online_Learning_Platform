@@ -12,3 +12,5 @@ black
 psycopg2
 httpx
 pytest
+docker-compose
+docker
