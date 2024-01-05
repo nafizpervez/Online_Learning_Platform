@@ -17,6 +17,7 @@ pipeline {
                 steps {
                         sh "echo venv installing..."
                         sh '''
+                            #!/bin/bash
                             umask 022
                             apt-get install -y python3-venv
                             python3 -m venv jenkins_venv
