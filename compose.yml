@@ -1,5 +1,7 @@
-#Python Version + Application Version
+
 services:
+
+  #POSTGRESQL DATABASE
   postgres:
     image: postgres
     # hostname: postgres
@@ -13,6 +15,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
     restart: unless-stopped
 
+  #POSTGRESQL DATABASE MANAGEMENT TOOL
   pgadmin:
     image: dpage/pgadmin4
     depends_on:
@@ -24,11 +27,13 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     restart: unless-stopped
 
+  #FASTAPI BACKEND
   backend:
     build: .
     ports:
       - "8000:8000"
 
+  #JENKINS PIPELINE WORKFLOW
   jenkins:
     image: jenkins/jenkins:lts
     restart: always
@@ -44,6 +49,8 @@ services:
       - /home/ubuntu/jenkins_compose/jenkins_configuration:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - .:/usr/code
+
+
 
 volumes:
   postgres-data:

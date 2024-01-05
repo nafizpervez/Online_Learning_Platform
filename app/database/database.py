@@ -6,6 +6,7 @@ def create_database_connection(db_type: str = 'postgresql'):
     match (db_type):
         case ('postgresql'):
             DATABASE_URL = 'postgresql+psycopg2://postgres:4321@host.docker.internal/online_learning_db'
+            # DATABASE_URL = 'postgresql+psycopg2://$POSTGRES_USER:POSTGRES_PASSWORD@host.docker.internal/online_learning_db' (@host/dbname)
         case ('sqlite'):
             DATABASE_URL = "sqlite:///./test/test_database/test_database.db"
         case (_):
