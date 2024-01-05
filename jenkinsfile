@@ -23,6 +23,7 @@ pipeline {
                             python --version
                             pip --version
                             pip install docker
+                            pip install wheel
                             pip install docker-compose
                             echo "Cython<3" > cython_constraint.txt
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
