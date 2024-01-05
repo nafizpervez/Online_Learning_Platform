@@ -42,17 +42,10 @@ pipeline {
                             pytest /usr/code/test/test_main.py
                             echo unit test SUCCESSFULLY done
 
-                            echo database initiating......
-
-                            docker-compose build postgres
-                            docker-compose build pgadmin
-
-                            echo datavase SUCCESSFULLY created
-
+                        
                             echo building back-end.......
 
-                            docker-compose build backend
-                            docker-compose build jenkins
+                            docker-compose build
 
                             
                             
