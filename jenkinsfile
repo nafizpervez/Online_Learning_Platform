@@ -17,9 +17,9 @@ pipeline {
                             }
                 }
         }
-        stage ('UNIT TEST'){
+        stage ('Environment Setup'){
                 steps {
-                        sh "echo unit testing..."
+                        sh "echo setuping environment......."
                         sh '''
                             #!/bin/bash
                             umask 022
@@ -29,6 +29,16 @@ pipeline {
                             python3 -m venv jenkins_venv
                             . ./jenkins_venv/bin/activate
                             pip install --upgrade pip
+                            '''
+                        sh "echo environment setup SUCCESS......."
+
+                }
+        }
+        stage('Building Testing Tools'){
+                steps {
+                        sh "echo testing tools building......."
+                        sh '''
+                            . ./jenkins_venv/bin/activate
                             echo "Cython<3" > cython_constraint.txt
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
                             apt-get install -y libpq-dev
@@ -37,10 +47,25 @@ pipeline {
                             pip install -U httpx 
                             pip install -U fastapi
                             pip install -U pytest
+                        '''
+                        sh "echo testing tool build SUCCESS"
+                }
+        }
+        stage('Api-End Point/Unit Testing'){
+                steps {
+                        sh "echo unit testing......."
+                        sh '''
+                            . ./jenkins_venv/bin/activate
                             pytest /usr/code/test/test_main.py
                         '''
-                        sh "echo Test SUCCESSFULLY done"
+                        sh "unit testing SUCCESS"
                 }
         }
     }
+
+
+
+
+    
+                          
 }
