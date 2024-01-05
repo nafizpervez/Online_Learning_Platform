@@ -15,11 +15,11 @@ pipeline {
         }
         stage('Installing venv') {
                 steps {
-                        sh "echo pipx installing..."
+                        sh "echo venv installing..."
                         sh '''
                             apt-get install -y python3-venv
                             python3 -m venv jenkins_venv
-                            ~/.jenkins_venv/bin/activate
+                            . ./jenkins_venv/bin/activate
                             python --version
 
                         '''
