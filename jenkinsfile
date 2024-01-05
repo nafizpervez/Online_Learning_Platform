@@ -28,10 +28,7 @@ pipeline {
                             echo "Cython<3" > cython_constraint.txt
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
                             pip install docker-compose
-                            pip install -U pytest
-                            pip install -U sqlalchemy
-                            pip install -U httpx 
-                            pip install -U fastapi
+                            pip install -r /usr/code/requirements.txt
                             pytest /usr/code/test/test_main.py
 
                         '''
