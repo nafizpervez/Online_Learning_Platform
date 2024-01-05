@@ -24,23 +24,21 @@ pipeline {
                             pip --version
                             pip install docker
                             pip install docker-compose
-                            pip install --no-cache-dir --upgrade -r /root/var/jenkins_home/workspace/test/requirements.txt
+                            pip install pytest --no-site-packages
+                            pytest /usr/code/test/test_main.py
+
                         '''
                         sh "venv installed"
                 }
-                 post {
-                    always {
-                        sh '. ./jenkins_venv/bin/deactivate'
-                    }
-                }
+                 
         }
         stage('Unit Test') {
                 steps {
                     script {
                         sh "echo docker-compose, pytest installing..."
-                        // sh '''
-                        //     pipx install docker-compose pytest
-                        // '''
+                        sh '''
+                            pytest 
+                        '''
                         sh "docker-compose, pytest installted"
                     }
                 }
