@@ -31,26 +31,17 @@ pipeline {
                     }
                 }
         }
-        stage('Initiating Virtual Enronment') {
+
+
+        stage ('UNIT TEST'){
                 steps {
-                        sh "echo venv installing..."
+                        sh "echo unit testing..."
                         sh '''
+                            #!/bin/bash
+                            umask 022
                             apt-get install -y python3-venv
                             python3 -m venv jenkins_venv
                             . ./jenkins_venv/bin/activate
-                            '''
-                        sh "echo venv ACTIVATED..."
-                        }
-        }
-
-
-
-
-
-        stage ('Tools Installation'){
-                steps {
-                        sh "echo venv installing..."
-                        sh '''
                             pip install docker
                             pip install wheel
                             echo "Cython<3" > cython_constraint.txt
@@ -61,23 +52,10 @@ pipeline {
                             pip install -U sqlalchemy
                             pip install -U httpx 
                             pip install -U fastapi
-                        '''
-                        sh "echo installation Complete"
-                }
-        }
-
-
-
-
-
-        stage ('Unit Testing'){
-                steps{
-                        sh "echo unit testing..."
-                        sh '''
                             pytest /usr/code/test/test_main.py
                             pyenv virtualenv-delete jenkins_venv
                         '''
-                        sh "echo unit test SUCCESS"
+                        sh "echo unit test SUCCESSFULL"
                 }
         }
 
@@ -91,7 +69,9 @@ pipeline {
 
 
 
-        stage('Database') {
+
+
+        stage('Build Database') {
                 steps {
                     script {
                         sh "echo database initiating..."
@@ -116,7 +96,7 @@ pipeline {
 
 
 
-        stage('Build') {
+        stage('Build Back-End') {
                 steps {
                     script {
                         sh "echo building back-end..."
