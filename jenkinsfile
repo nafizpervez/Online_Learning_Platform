@@ -13,17 +13,17 @@ pipeline {
                     }
                 }
         }
-        stage('Installing pipx') {
+        stage('Installing venv') {
                 steps {
                         sh "echo pipx installing..."
                         sh '''
-                            apt-get install -y pipx
-                            mv ~/.local/pipx/shared /usr/local/share.old
-                            pipx list
-                            pipx install docker-compose
-                            pipx install pytest
+                            apt-get install -y python3-venv
+                            python3 -m venv jenkins_venv
+                            ~/.jenkins_venv/bin/activate
+                            python --version
+
                         '''
-                        sh "pipx installed"
+                        sh "venv installed"
                 }
         }
         stage('Unit Test') {
