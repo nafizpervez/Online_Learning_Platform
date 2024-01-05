@@ -5,7 +5,7 @@ pipeline {
                 steps {
                     script {
                             sh "echo checkout begins......."
-                            
+
                             sh "apt-get install -y git"
 
                             git credentialsId: 'GIT_AUTH_TOKEN', url: 'https://github.com/nafizpervez/Online_Learning_Platform_BE_docker_python.git'
@@ -15,18 +15,6 @@ pipeline {
 
                             sh "echo checkout SUCCESSFUL"
                             }
-                }
-        }
-        stage('Installing Dependencies') {
-                steps {
-                    script {
-                        sh "echo Python3 install started..."
-                        sh '''
-                            apt-get update
-                            apt-get install -y python3
-                        '''
-                        sh "echo Python3 install ended"
-                    }
                 }
         }
         stage('Installing Dependencies') {
