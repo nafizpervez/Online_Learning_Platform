@@ -18,10 +18,10 @@ pipeline {
                     script {
                         sh "echo dependencies installing..."
                         sh '''
-                            pip install -r /usr/code/requirements.txt
+                            pip install -r /var/jenkins_home/workspace/test/requirements.txt
                             apt-get update
                         '''
-                        sh "dependencies installed"
+                        sh "dependencies installted"
                     }
                 }
         }
