@@ -21,9 +21,18 @@ pipeline {
                             python3 -m venv jenkins_venv
                             . ./jenkins_venv/bin/activate
                             python --version
+                            pip --version
+                            pip install docker
+                            pip install docker-composer
+                            pip install --no-cache-dir --upgrade -r ../requirements.txt
 
                         '''
                         sh "venv installed"
+                }
+                 post {
+                    always {
+                        sh 'deactivate' 
+                    }
                 }
         }
         stage('Unit Test') {
