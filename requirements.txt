@@ -13,5 +13,3 @@ psycopg2
 httpx
 pytest
 wheel
-docker-compose
-docker
