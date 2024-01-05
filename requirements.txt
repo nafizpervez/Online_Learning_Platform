@@ -12,4 +12,3 @@ black
 psycopg2
 httpx
 pytest
-wheel
