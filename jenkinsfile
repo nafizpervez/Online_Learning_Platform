@@ -19,20 +19,21 @@ pipeline {
                         sh "echo pipx installing..."
                         sh '''
                             apt-get install -y pipx
+                            pipx install docker-compose
+                            pipx install pytest
                         '''
-                        sh "pipx installted"
+                        sh "pipx installed"
                     }
                 }
         }
-        stage('Installing docker-compose') {
+        stage('Unit Test') {
                 steps {
                     script {
-                        sh "echo docker-compose, pytest installing..."
-                        sh '''
-                            pipx install docker-compose pytest
-                            apt-get update
-                        '''
-                        sh "docker-compose, pytest installted"
+                        // sh "echo docker-compose, pytest installing..."
+                        // sh '''
+                        //     pipx install docker-compose pytest
+                        // '''
+                        // sh "docker-compose, pytest installted"
                     }
                 }
         }
