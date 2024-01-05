@@ -26,13 +26,13 @@ pipeline {
         }
         stage('Unit Test') {
                 steps {
-                    script {
+                    // script {
                         // sh "echo docker-compose, pytest installing..."
                         // sh '''
                         //     pipx install docker-compose pytest
                         // '''
                         // sh "docker-compose, pytest installted"
-                    }
+                    // }
                 }
         }
         
