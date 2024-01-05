@@ -19,7 +19,7 @@ pipeline {
                         sh "echo python3 starting venv..."
                         sh '''
                             apt install -y python3.11-venv
-                            . ./venv/bin/activate
+                            source venv/Scripts/activate
                         '''
                         sh "echo venv activated"
                     }
