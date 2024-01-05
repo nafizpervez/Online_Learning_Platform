@@ -15,7 +15,6 @@ pipeline {
         }
         stage('Installing pipx') {
                 steps {
-                    script {
                         sh "echo pipx installing..."
                         sh '''
                             apt-get install -y pipx
@@ -23,7 +22,6 @@ pipeline {
                             pipx install pytest
                         '''
                         sh "pipx installed"
-                    }
                 }
         }
         stage('Unit Test') {
