@@ -34,6 +34,7 @@ pipeline {
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
                             pip install docker-compose
                             apt-get install -y libpq-dev
+                            pip install -U psycopg2-binary
                             pip install -U psycopg2
                             pip install -U sqlalchemy
                             pip install -U httpx 
