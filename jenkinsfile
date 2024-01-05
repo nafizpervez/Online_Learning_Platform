@@ -18,6 +18,8 @@ pipeline {
                         sh "echo pipx installing..."
                         sh '''
                             apt-get install -y pipx
+                            mv ~/.local/pipx/shared /usr/local/share.old
+                            pipx list
                             pipx install docker-compose
                             pipx install pytest
                         '''
