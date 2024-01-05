@@ -9,7 +9,6 @@ click
 faker
 uvicorn
 black
-psycopg2-binary
 psycopg2
 httpx
 pytest

@@ -28,6 +28,7 @@ pipeline {
                             apt-get install -y python3-venv
                             python3 -m venv jenkins_venv
                             . ./jenkins_venv/bin/activate
+                            pip install --upgrade pip
                             pip install docker
                             echo "Cython<3" > cython_constraint.txt
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
