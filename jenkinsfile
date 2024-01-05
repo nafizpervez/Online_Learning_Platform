@@ -29,17 +29,17 @@ pipeline {
                             python3 -m venv jenkins_venv
                             . ./jenkins_venv/bin/activate
                             pip install docker
-                            pip install wheel
                             echo "Cython<3" > cython_constraint.txt
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
                             pip install docker-compose
-                            apt-get install -y libpq-dev
                             pip install -U psycopg2-binary
+                            apt-get install -y libpq-dev
                             pip install -U psycopg2
                             pip install -U sqlalchemy
                             pip install -U httpx 
                             pip install -U fastapi
                             pytest /usr/code/test/test_main.py
+                            docker compose build
                         '''
                         sh "echo Test SUCCESSFULLY done"
                 }
