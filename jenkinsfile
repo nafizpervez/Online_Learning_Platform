@@ -31,7 +31,6 @@ pipeline {
                             pip install docker
                             echo "Cython<3" > cython_constraint.txt
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
-                            pip install docker-compose
                             pip install -U psycopg2-binary
                             apt-get install -y libpq-dev
                             pip install -U psycopg2
@@ -39,6 +38,7 @@ pipeline {
                             pip install -U httpx 
                             pip install -U fastapi
                             pytest /usr/code/test/test_main.py
+                            
                             docker compose build
                         '''
                         sh "echo Test SUCCESSFULLY done"
