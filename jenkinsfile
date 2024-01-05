@@ -28,8 +28,11 @@ pipeline {
                             echo "Cython<3" > cython_constraint.txt
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
                             pip install docker-compose
-                            pip install psycopg2-binary --no-cache-dir
-                            pip install -r /usr/code/requirements.txt
+                            pip install -U psycopg2-binary
+                            pip install -U psycopg2
+                            pip install -U sqlalchemy
+                            pip install -U httpx 
+                            pip install -U fastapi
                             pytest /usr/code/test/test_main.py
 
                         '''
