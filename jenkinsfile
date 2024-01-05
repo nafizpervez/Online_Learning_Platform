@@ -40,8 +40,25 @@ pipeline {
                             pip install -U httpx 
                             pip install -U fastapi
                             pytest /usr/code/test/test_main.py
+                            echo unit test SUCCESSFULLY done
+
+                            echo database initiating......
+
+                            docker-compose build postgres
+                            docker-compose build pgadmin
+
+                            echo datavase SUCCESSFULLY created
+
+                            echo building back-end.......
+
+                            docker-compose build backend
+                            docker-compose build jenkins
+
+                            
+                            
+
                         '''
-                        sh "echo unit test SUCCESSFULL"
+                        sh "echo building SUCCESSFULLY done"
                 }
         }
 
@@ -62,8 +79,25 @@ pipeline {
                     script {
                         sh "echo database initiating..."
                         sh '''
-                            docker-compose build postgres
-                            docker-compose build pgadmin
+                            #!/bin/bash
+                            umask 022
+                            apt-get update
+                            apt-get install -y python3
+                            apt-get install -y python3-venv
+                            python3 -m venv jenkins_venv
+                            . ./jenkins_venv/bin/activate
+                            pip install docker
+                            pip install wheel
+                            echo "Cython<3" > cython_constraint.txt
+                            PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
+                            pip install docker-compose
+                            apt-get install -y libpq-dev
+                            pip install -U psycopg2
+                            pip install -U sqlalchemy
+                            pip install -U httpx 
+                            pip install -U fastapi
+                            pytest /usr/code/test/test_main.py
+                            
                         '''
                         sh "echo datavase SUCCESSFULLY created"
                     }
@@ -87,6 +121,26 @@ pipeline {
                     script {
                         sh "echo building back-end..."
                         sh '''
+                            #!/bin/bash
+                            umask 022
+                            apt-get update
+                            apt-get install -y python3
+                            apt-get install -y python3-venv
+                            python3 -m venv jenkins_venv
+                            . ./jenkins_venv/bin/activate
+                            pip install docker
+                            pip install wheel
+                            echo "Cython<3" > cython_constraint.txt
+                            PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
+                            pip install docker-compose
+                            apt-get install -y libpq-dev
+                            pip install -U psycopg2
+                            pip install -U sqlalchemy
+                            pip install -U httpx 
+                            pip install -U fastapi
+                            pytest /usr/code/test/test_main.py
+                            docker-compose build postgres
+                            docker-compose build pgadmin
                             docker-compose build backend
                             docker-compose build jenkins
                         '''
