@@ -23,15 +23,14 @@ pipeline {
                             python --version
                             pip --version
                             pip install docker
-                            pip install docker-composer
-                            pip install --no-cache-dir --upgrade -r ../requirements.txt
-
+                            pip install docker-compose
+                            pip install --no-cache-dir --upgrade -r /root/var/jenkins_home/workspace/test/requirements.txt
                         '''
                         sh "venv installed"
                 }
                  post {
                     always {
-                        sh 'deactivate' 
+                        sh '. ./jenkins_venv/bin/deactivate'
                     }
                 }
         }
