@@ -4,6 +4,10 @@ FROM python:3.12
 WORKDIR /code
 # 
 COPY ./requirements.txt /code/requirements.txt
+#
+RUN echo "Cython<3" > cython_constraint.txt
+#
+RUN PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
 # 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 # 

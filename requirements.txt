@@ -12,7 +12,6 @@ black
 psycopg2
 httpx
 pytest
-cython<3.0.0 --no-build-isolation
-pyyaml==6.0 --no-build-isolation
+wheel
 docker-compose
 docker
