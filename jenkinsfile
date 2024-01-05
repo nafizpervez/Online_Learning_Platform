@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages{
-        stage('Git Checkout') {
+        stage('GIT CHECKOUT') {
                 steps {
                     script {
                             sh "echo checkout begins......."
@@ -17,21 +17,6 @@ pipeline {
                             }
                 }
         }
-        stage('Installing Dependencies') {
-                steps {
-                    script {
-                        sh "echo Python3 install started..."
-                        sh '''
-                            #!/bin/bash
-                            umask 022
-                            apt-get update
-                            apt-get install -y python3
-                        '''
-                        sh "echo Python3 install ended"
-                    }
-                }
-        }
-
 
         stage ('UNIT TEST'){
                 steps {
@@ -39,6 +24,8 @@ pipeline {
                         sh '''
                             #!/bin/bash
                             umask 022
+                            apt-get update
+                            apt-get install -y python3
                             apt-get install -y python3-venv
                             python3 -m venv jenkins_venv
                             . ./jenkins_venv/bin/activate
@@ -53,7 +40,6 @@ pipeline {
                             pip install -U httpx 
                             pip install -U fastapi
                             pytest /usr/code/test/test_main.py
-                            pyenv virtualenv-delete jenkins_venv
                         '''
                         sh "echo unit test SUCCESSFULL"
                 }
