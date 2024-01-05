@@ -7,7 +7,7 @@ pipeline {
                         sh "echo Python3 install started..."
                         sh '''
                             apt-get update
-                            apt-get install python3 python3-pip
+                            apt-get install -y python3 python3-pip
                         '''
                         sh "echo Python3 install ended"
                     }
@@ -19,6 +19,7 @@ pipeline {
                         sh "echo Docker install started..."
                         sh '''
                             apt-get update
+                            pip install -y docker docker-compose
                         '''
                         sh "echo Docker install ended"
                     }
