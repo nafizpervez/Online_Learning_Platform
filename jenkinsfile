@@ -17,8 +17,8 @@ pipeline {
                 steps {
                         sh "echo venv installing..."
                         sh '''
-                            #!/bin/bash
                             umask 022
+                            #!/bin/bash
                             apt-get install -y python3-venv
                             python3 -m venv jenkins_venv
                             . ./jenkins_venv/bin/activate
@@ -30,12 +30,12 @@ pipeline {
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
                             pip install docker-compose
                             apt-get install -y libpq-dev
-                            pip install -U psycopg2-binary
                             pip install -U psycopg2
                             pip install -U sqlalchemy
                             pip install -U httpx 
                             pip install -U fastapi
                             pytest /usr/code/test/test_main.py
+                            deactivate
 
                         '''
                         sh "venv installed"
