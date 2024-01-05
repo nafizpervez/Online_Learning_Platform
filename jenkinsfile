@@ -31,7 +31,7 @@ pipeline {
                             pip install docker
                             echo "Cython<3" > cython_constraint.txt
                             PIP_CONSTRAINT=cython_constraint.txt pip install "ai-core-sdk[aicore-content]"
-                            apt-get install postgresql
+                            apt-get install -y postgresql
                             pip install -U psycopg2-binary
                             apt-get install -y python-psycopg2
                             apt-get install -y libpq-dev
