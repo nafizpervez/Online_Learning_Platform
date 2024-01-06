@@ -3,6 +3,7 @@ from app.models import models
 from app.schemas import schemas
 from app.controller import controller
 from app.database.database import  create_database_connection
+from fastapi.middleware.cors import CORSMiddleware
 
 engine, session = create_database_connection(db_type='postgresql')
 
@@ -15,6 +16,19 @@ def get_db():
         db.close()
 
 app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",  #Next.js app runs on port 3000
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # insert new courses into db and getting course by title
 @app.post("/create_courses", response_model=schemas.Course, status_code=201)
