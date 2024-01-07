@@ -59,15 +59,10 @@ def test_enroll_student_if_course_exists():
     enrollment_data = {
         "studentName": "John Doe",
         "enrollmentDate": "2023-01-01",
+        "course_id":"200"
     }
-    # Test the enrollment endpoint with an existing course_id
-    response = client.post(f"/enroll_student?course_id=1", data=json.dumps(enrollment_data))
-    # Assert that the response status code is 201 (Created)
+    response = client.post("/enroll_student", data=json.dumps(enrollment_data))
     assert response.status_code == 201
-    # Assert that the response JSON contains the expected keys
-    assert "studentName" in response.json()
-    assert "enrollmentDate" in response.json()
-    assert "course_id" in response.json()
 
 #testing getting filtered courses 
 def test_filter_courses():

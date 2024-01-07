@@ -158,7 +158,7 @@ const CreateCourseForm = () => {
             value={formData.price}
             onChange={handleChange}
             required
-            step="0.1"
+            step="1.1"
             placeholder="Course Price"
             className="block h-14 mt-10 mx-auto w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500"
           />
@@ -173,26 +173,66 @@ const CreateCourseForm = () => {
           </button>
         </div>
       </form >
-      {
-        isSubmitted && (
-          <div className='preview-section'>
-            <h2>Preview:</h2>
-            <p>Title: {formData.title}</p>
-            <p>Description: {formData.description}</p>
-            <p>Instructor: {formData.instructor}</p>
-            <p>Duration: {formData.duration}</p>
-            <p>Price: {formData.price}</p>
-            <p>Course ID: {formData.course_id}</p>
+      {isSubmitted && !error && (
+        <div className="success-section mt-6">
+          <div className="card block w-full px-6 py-3 border border-green-500 rounded-lg focus:outline-none focus:border-gray-500 bg-green-50">
+            <div className="card-header text-center">
+              <h2 className="text-xl font-semibold text-green-500 mb-2">Course Created Successfully</h2>
+            </div>
           </div>
-        )
-      }
-      {error && (
-        <div className="error-section" style={{ color: 'red', marginTop: '10px' }}>
-          <p>Error Type: {error.type}</p>
-          <p>Message: {error.msg}</p>
-          {/* Display other relevant properties as needed */}
         </div>
       )}
+      {isSubmitted && !error && (
+        <div className="preview-section mt-6">
+          <div className="card w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500 bg-gray-100">
+            <div className="card-header text-center">
+              <h2 className="text-xl font-semibold mb-2">Created Course Preview</h2>
+            </div>
+            <div className="card-body flex flex-auto justify-center items-center ">
+              <table className="table-preview bg-white ">
+                <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
+                  <td className="w-80 py-2 px-10">Title</td>
+                  <td className="w-80 py-2 px-10">{formData.title}</td>
+                </tr>
+                <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
+                  <td className="w-80 py-2 px-10">Description</td>
+                  <td className="w-80 py-2 px-10">{formData.description}</td>
+                </tr>
+                <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
+                  <td className="w-80 py-2 px-10">Instructor</td>
+                  <td className="w-80 py-2 px-10">{formData.instructor}</td>
+                </tr>
+                <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
+                  <td className="w-80 py-2 px-10">Duration</td>
+                  <td className="w-80 py-2 px-10">{formData.duration}</td>
+                </tr>
+                <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
+                  <td className="w-80 py-2 px-10">Price</td>
+                  <td className="w-80 py-2 px-10">{formData.price}</td>
+                </tr>
+                <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
+                  <td className="w-80 py-2 px-10">Course ID:</td>
+                  <td className="w-80 py-2 px-10">{formData.course_id}</td>
+                </tr>
+
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+      {error && (
+        <div className="error-section mt-6">
+          <div className="card w-full px-6 py-7 border border-red-500 rounded-lg focus:outline-none focus:border-gray-500 ">
+            <div className="card-header text-center">
+              <h2 className="text-xl font-semibold text-red-500 mb-2">Error</h2>
+            </div>
+            <div className="card-body">
+              <p className="text-red-500">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div >
   );
 }

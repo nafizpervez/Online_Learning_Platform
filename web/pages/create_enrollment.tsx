@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 const CreateEnrollmentForm = () => {
   const [formData, setFormData] = useState({
-    course_id: 0,
+    course_id: 11,
     studentName: '',
     enrollmentDate: '',
   });
@@ -88,7 +88,6 @@ const CreateEnrollmentForm = () => {
 
         <div className="text flex flex-col my-4">
           <label className="font-bold text-gray-800" htmlFor="course_id">
-            Available Course ID:
           </label>
           <select
             id="course_id"
@@ -97,7 +96,7 @@ const CreateEnrollmentForm = () => {
             onChange={handleChange}
             className="block h-14 mt-2 mx-auto w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500"
           >
-            <option value="">Select Course ID</option>
+            <option value="">Available Course ID</option>
             {courseIds.map((course_id) => (
               <option key={course_id} value={course_id}>
                 {course_id}
@@ -165,21 +164,59 @@ const CreateEnrollmentForm = () => {
           </button>
         </div>
       </form >
-      {
-        isSubmitted && (
-          <div className="preview-section mt-6">
-            <h2 className="text-xl font-semibold mb-2">Enrollment Preview:</h2>
-            <p><strong>Course ID:</strong>{formData.course_id}</p>
-            <p><strong>Student Name:</strong> {formData.studentName}</p>
-            <p><strong>Enrollment Date:</strong> {formData.enrollmentDate}</p>
+
+
+      {isSubmitted && !error && (
+        <div className="success-section mt-6">
+          <div className="card block w-full px-6 py-3 border border-green-500 rounded-lg focus:outline-none focus:border-gray-500 bg-green-50">
+            <div className="card-header text-center">
+              <h2 className="text-xl font-semibold text-green-500 mb-2">Enrollment Created Successfully</h2>
+            </div>
           </div>
-        )
-      }
-      {error && (
-        <div className="error-section" style={{ color: 'red', marginTop: '10px' }}>
-          <p>Error: {error.message}</p>
         </div>
       )}
+
+      {isSubmitted && !error && (
+        <div className="preview-section mt-6">
+          <div className="card w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500 bg-gray-100">
+            <div className="card-header text-center">
+              <h2 className="text-xl font-semibold mb-2">Enrollment Preview</h2>
+            </div>
+            <div className="card-body flex flex-auto justify-center items-center ">
+              <table className="table-preview bg-white ">
+                <tbody className="align-middle">
+                  <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
+                    <td className="w-80 py-2 px-10">Course ID</td>
+                    <td className="w-80 py-2 px-10">{formData.course_id}</td>
+                  </tr>
+                  <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
+                    <td className="w-80 py-2 px-10">Student Name</td>
+                    <td className="w-80 py-2 px-10">{formData.studentName}</td>
+                  </tr>
+                  <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
+                    <td className="w-80 py-2 px-10">Enrollment Date</td>
+                    <td className="w-80 py-2 px-10">{formData.enrollmentDate}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="error-section mt-6">
+          <div className="card w-full px-6 py-7 border border-red-500 rounded-lg focus:outline-none focus:border-gray-500 ">
+            <div className="card-header text-center">
+              <h2 className="text-xl font-semibold text-red-500 mb-2">Error</h2>
+            </div>
+            <div className="card-body">
+              <p className="text-red-500">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div >
 
   );
