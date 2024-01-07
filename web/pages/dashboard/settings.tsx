@@ -1,5 +1,6 @@
-import RootLayout from '@/components/Layout';
-import DashboardLayout from '@/components/DashboardLayout';
+import RootLayout from '../../components/Layout';
+import DashboardLayout from '../../components/DashboardLayout';
+import React from 'react';
 
 const Settings = () => {
   return <div>My settings screen</div>;

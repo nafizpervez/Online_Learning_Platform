@@ -5,6 +5,7 @@ from app.controller import controller
 from app.database.database import  create_database_connection
 from fastapi.middleware.cors import CORSMiddleware
 
+
 engine, session = create_database_connection(db_type='postgresql')
 
 def get_db():
@@ -56,18 +57,12 @@ def view_course_by_ID(id: int, db: session = Depends(get_db)):
     return db_course
 
 
+
 # enrolling in the course
 @app.post("/enroll_student", response_model=schemas.Enrollment, status_code=201)
-def create_enrollment_for_course(enrollment: schemas.EnrollmentCreate, 
-                                 course_id: int , 
-                                 db: session = Depends(get_db)):
-    db_course_id = controller.get_id_from_course(db, course_id=course_id)
-    if (db_course_id == course_id):
-        db_enrollment = controller.create_enrollment(
-            db=db, enrollment=enrollment, course_id=db_course_id)
-        return db_enrollment
-    else:
-        raise HTTPException(status_code=404, detail="Course Not Found")
+def create_enrollment_for_course(enrollment: schemas.EnrollmentCreate, db: session = Depends(get_db)):
+    return controller.create_enrollment(db=db, enrollment=enrollment)
+
     
 
 # show filtered courses
@@ -80,6 +75,9 @@ def read_filtered_courses(
                         ):
             courses = controller.get_filtered_courses(db, instructor, duration, price)
             return courses
+
+
+
 
 #show all enrollments
 @app.get("/get_enrollments", response_model=list[schemas.Enrollment], description="Show All Enrollments")
@@ -100,3 +98,9 @@ def drop_all_enrollments(db: session = Depends(get_db)):
 def drop_all_courses(db: session = Depends(get_db)):
     controller.drop_all_courses(db)
     return {"message": "All values dropped from the courses table"}
+
+# Define the API endpoint to get course_id
+@app.get("/all_course_ids_only", response_model=list[int])
+async def read_all_course_ids(session: session = Depends(get_db)):
+    private_keys = session.query(models.Course.course_id).all()
+    return [key[0] for key in private_keys]

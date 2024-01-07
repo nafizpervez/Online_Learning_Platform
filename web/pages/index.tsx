@@ -1,4 +1,5 @@
-import RootLayout from '@/components/Layout';
+import RootLayout from '../components/Layout';
+import React from 'react';
 
 const Home = () => {
   return (
@@ -9,13 +10,14 @@ const Home = () => {
       <h2 className="text-3xl font-bold text-gray-900 leading-[1] mb-2">
         Developed by NafizPervez
       </h2>
-
     </main>
   );
 };
 
 Home.getLayout = (page) => {
-  return <RootLayout>{page}</RootLayout>;
+  return <RootLayout>
+    {page}
+  </RootLayout>;
 };
 
 export default Home;

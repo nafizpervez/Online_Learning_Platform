@@ -1,4 +1,4 @@
-import '@/styles/globals.css';
+import '../styles/globals.css';
 
 export default function App({ Component, pageProps }) {
   // If page layout is available, use it. Else return the page
