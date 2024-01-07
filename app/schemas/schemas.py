@@ -11,6 +11,7 @@ class EnrollmentBase(BaseModel):
 class EnrollmentCreate(EnrollmentBase):
     studentName: str
     enrollmentDate: str
+    course_id: int
     class Config:
         arbitrary_types_allowed = True
         from_attributes = True
@@ -27,7 +28,7 @@ class CourseBase(BaseModel):
     title: str
     description: str
     instructor: str
-    duration: int
+    duration: float
     price: float
     class Config:
         arbitrary_types_allowed = True
@@ -37,7 +38,7 @@ class CourseCreate(CourseBase):
     title: str
     description: str
     instructor: str
-    duration: int
+    duration: float
     price: float
     class Config:
         arbitrary_types_allowed = True
@@ -48,7 +49,7 @@ class Course(CourseBase):
     title: str
     description: str
     instructor: str
-    duration: int
+    duration: float
     price: float
     class Config:
         arbitrary_types_allowed = True

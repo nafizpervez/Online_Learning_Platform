@@ -38,9 +38,9 @@ def validate_instructor(instructor: str = Query(None, title="Instructor")):
         raise HTTPException(status_code=400, detail="Instructor must be a Name")
     return instructor
 
-def validate_duration(duration: int = Query(None, title="Duration")):
-    if duration is not None and not isinstance(duration, int):
-        raise HTTPException(status_code=400, detail="Duration must be an Integer Number of Minutes")
+def validate_duration(duration: float = Query(None, title="Duration")):
+    if duration is not None and not isinstance(duration, float):
+        raise HTTPException(status_code=400, detail="Duration must be an Float Number of Minutes")
     return duration
 
 def validate_price(price: float = Query(None, title="Price")):
@@ -110,15 +110,14 @@ def get_id_from_course(db: session, course_id: int):
     course_id = db.query(func.max(models.Course.course_id)).filter(models.Course.course_id == course_id).scalar()
     return course_id
 
+
 # enrollment Create
-def create_enrollment(db: session, enrollment: schemas.EnrollmentCreate, course_id: int):
-    db_course_id = db.query(func.max(models.Course.course_id)).filter(
-        models.Course.course_id == course_id).scalar()
+def create_enrollment(db: session, enrollment: schemas.EnrollmentCreate):
     db_enrollment = models.Enrollment(
         studentName=enrollment.studentName,
         enrollmentDate=enrollment.enrollmentDate,
-        course_id=db_course_id,
-        owner_id=course_id
+        course_id=enrollment.course_id,
+        owner_id = enrollment.course_id,
     )
     db.add(db_enrollment)
     db.commit()
@@ -134,7 +133,7 @@ def drop_all_enrollments(db: session):
 #filter_courses
 def get_filtered_courses(db: session, 
                         instructor: str = Depends(validate_instructor), 
-                        duration: int = Depends(validate_duration), 
+                        duration: float = Depends(validate_duration), 
                         price: float = Depends(validate_price)
                         )-> list[models.Course]:    
     db_filter_course = db.query(models.Course)
@@ -148,3 +147,6 @@ def get_filtered_courses(db: session,
     if not filtered_courses:
         raise HTTPException(status_code=404, detail="No courses found with the specified criteria")
     return filtered_courses
+
+
+

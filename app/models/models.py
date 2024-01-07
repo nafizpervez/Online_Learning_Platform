@@ -10,11 +10,11 @@ class Course(Base):
     
     __tablename__ = "courses"
     
-    course_id = Column(Integer, primary_key=True)
+    course_id = Column(Integer, primary_key=True, index = True)
     title = Column(String,nullable=False, index = True)
     description =  Column(String,nullable=False, index = True)
     instructor =  Column(String,nullable=False, index = True)
-    duration =  Column(Integer, nullable=False, index = True)
+    duration =  Column(Float, nullable=False, index = True)
     price = Column(Float, nullable=False, index = True)
     
     enrollments = relationship("Enrollment", back_populates="courses")
@@ -26,7 +26,7 @@ class Enrollment(Base):
     
     __tablename__ = "enrollments"
 
-    course_id = Column(Integer, primary_key=True)
+    course_id = Column(Integer, primary_key=True, index = True)
     studentName =  Column(String, nullable=False, index = True)
     enrollmentDate= Column(String, nullable=False, index = True)
     
