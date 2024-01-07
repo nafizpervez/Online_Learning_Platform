@@ -68,7 +68,7 @@ def validate_enrollmentDate(enrollmentDate: str = Query(None, title="EnrollmentD
         raise HTTPException(status_code=400, detail="Enrollment Date must be a Date String")
     return enrollmentDate
 
-##-------------Validation Ends------------------##
+##-------------Validation Ends--------------
 
 # get course by id
 def get_course_by_id(db: session, course_id: int):
