@@ -163,7 +163,7 @@ const CreateCourseForm = () => {
             className="block h-14 mt-10 mx-auto w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-gray-500"
           />
         </div>
-        <div className=" text flex flex-col my-4">
+        <div className=" text flex flex-col my-4 ">
           <button
             type="submit"
             disabled={loading}

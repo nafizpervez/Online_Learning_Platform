@@ -229,10 +229,3 @@ CreateEnrollmentForm.getLayout = (page) => (
 );
 
 export default CreateEnrollmentForm;
-
-
-
-
-
-
-
