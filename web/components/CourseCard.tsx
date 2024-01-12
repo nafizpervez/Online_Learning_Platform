@@ -8,44 +8,37 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     return (
-        <div className="grid grid-cols-1 gap-2 justify-center">
-            <div className="card w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500 bg-gray-100">
-                <div className="card-header text-center bordertext-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] ]">
+        <div className="grid grid-cols-1 w-full grid-flow-dense">
+            <div className="card w-full px-6 py-4 col-span-2 space-y-2 border border-gray-300  bg-gray-50 shadow-[0_4px_9px_-4px_#3b71ca]">
+                <div className="card-header text-center px-5 py-2 items-center justify-center border border-gray-200 font-semibold shadow-[0_4px_9px_-4px_#3b71ca]">
                     <h2 className="text-xl font-semibold mb-2">{`Course ID: ${course.course_id}`}</h2>
                 </div>
-                <div className="card-body flex flex-auto justify-center items-center ">
-                    <table className="table-preview bg-white bordertext-xs font-medium leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] ]">
-                        <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
-                            <td className="w-80 py-2 px-10">Title</td>
-                            <td className="w-80 py-2 px-10">{course.title}</td>
+                <div className="card-body order-b-2  px-6 py-3 justify-center text-black shadow-[0_4px_9px_-4px_#3b71ca]">
+                    <table className="table-preview bordertext-xs font-medium leading-normal]">
+                        <tr className="col-span-2 space-y-2 border  lg:whitespace-nowrap px-4 pl-4 pr-3 text-sm sm:pl-6 border-gray-200 py-2">
+                            <td className="w-80 py-2 px-5">Title</td>
+                            <td className="w-80 py-2 px-5">{course.title}</td>
                         </tr>
-                        <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
-                            <td className="w-80 py-2 px-10">Description</td>
-                            <td className="w-80 py-2 px-10">{course.description}</td>
+                        <tr className="col-span-2 space-y-2 border lg:whitespace-nowrap  px-4  text-sm sm:pl-6 border-gray-200 py-2">
+                            <td className="w-80 py-2 px-5">Description</td>
+                            <td className="w-80 py-2 px-5">{course.description}</td>
                         </tr>
-                        <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
-                            <td className="w-80 py-2 px-10">Instructor</td>
-                            <td className="w-80 py-2 px-10">{course.instructor}</td>
+                        <tr className="col-span-2 space-y-2 border  lg:whitespace-nowrap  px-4 border-gray-200 py-2">
+                            <td className="w-80 py-2 px-5">Instructor</td>
+                            <td className="w-80 py-2 px-5">{course.instructor}</td>
                         </tr>
-                        <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
-                            <td className="w-80 py-2 px-10">Duration</td>
-                            <td className="w-80 py-2 px-10">{course.duration}</td>
+                        <tr className="col-span-2 space-y-2 border lg:whitespace-nowrap  px-4 border-gray-200 py-2">
+                            <td className="w-80 py-2 px-5">Duration</td>
+                            <td className="w-80 py-2 px-5">{course.duration}</td>
                         </tr>
-                        <tr className="border border-gray-300 rounded-lg focus:outline-none focus:border-gray-500">
-                            <td className="w-80 py-2 px-10">Price</td>
-                            <td className="w-80 py-2 px-10">{course.price}</td>
+                        <tr className="col-span-2 space-y-2 border lg:whitespace-nowrap  px-4 border-gray-200 py-2">
+                            <td className="w-80 py-2 px-5">Price</td>
+                            <td className="w-80 py-2 px-5">{course.price}</td>
                         </tr>
                     </table>
                 </div>
-                <button
-                    type="button"
-                    className="inline-block w-full border-gray-00 rounded-lg px-6 pb-2 pt-2.5 my-6 justify-center bordertext-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] ]"
-                    data-te-ripple-init
-                    data-te-ripple-color="light">
-                    Button
-                </button>
             </div>
-        </div>
+        </div >
     );
 };
 

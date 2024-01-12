@@ -117,7 +117,6 @@ def create_enrollment(db: session, enrollment: schemas.EnrollmentCreate):
         studentName=enrollment.studentName,
         enrollmentDate=enrollment.enrollmentDate,
         course_id=enrollment.course_id,
-        owner_id = enrollment.course_id,
     )
     db.add(db_enrollment)
     db.commit()

@@ -13,6 +13,3 @@ export interface Enrollment {
     studentName: string;
     enrollmentDate: string;
 }
-
-
-
