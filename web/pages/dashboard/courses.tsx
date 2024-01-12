@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import CourseCard from '../../components/CourseCard'
 import { Course } from '../../types/types'
 
-const allCourses = () => {
+const AllCourses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
 
   useEffect(() => {
@@ -34,10 +34,10 @@ const allCourses = () => {
 };
 
 
-allCourses.getLayout = (page) => (
+AllCourses.getLayout = (page) => (
   <RootLayout>
     <DashboardLayout>{page}</DashboardLayout>
   </RootLayout>
 );
 
-export default allCourses;
+export default AllCourses;

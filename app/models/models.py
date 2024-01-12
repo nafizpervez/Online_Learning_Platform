@@ -34,6 +34,3 @@ class Enrollment(Base):
 
     courses = relationship('Course', back_populates="enrollments");
     enrolled: relationship('Course', backref = 'enrollments', lazy = True, cascade = "all, delete-orphan")
-    
-
-    
