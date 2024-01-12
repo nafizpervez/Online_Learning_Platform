@@ -1,3 +1,4 @@
+version: '4'
 
 services:
 
@@ -33,6 +34,12 @@ services:
     ports:
       - "8000:8000"
 
+  #NEXTJS FRONTEND
+  frontend:
+    build: ./web
+    ports:
+      - "3000:3000"
+
   #JENKINS PIPELINE WORKFLOW
   jenkins:
     image: jenkins/jenkins:lts
@@ -49,7 +56,6 @@ services:
       - /home/ubuntu/jenkins_compose/jenkins_configuration:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - .:/usr/code
-
 
 
 volumes:
