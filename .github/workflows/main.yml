@@ -33,6 +33,7 @@ jobs:
 
     steps:
       # - uses: actions/checkout@v3
+      - run: pip install pytest
       - name: Unit Testing
         run: pytest test/test_main.py
     
