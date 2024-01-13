@@ -19,9 +19,35 @@ jobs:
       - name: Build Docker Compose Image
         run: docker-compose build --no-cache --force-rm
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Test Docker Compose Image
         run: docker-compose up -d
+      
+      - uses: actions/checkout@v3
+
+      - name: Unit Testing
+        run: pytest test/test_main.py
+
+      - run: docker-compose build backend
+
+      - name: push backend into docker hub
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: nafizpervez/online_learning_platform:backend
+      
+      - uses: actions/checkout@v3
+
+      - run: docker-compose build frontend
+
+      - name: push backend into docker hub
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: nafizpervez/online_learning_platform:frontend
+        
 
       
