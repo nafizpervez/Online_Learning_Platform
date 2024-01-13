@@ -232,7 +232,6 @@ const CreateCourseForm = () => {
           </div>
         </div>
       )}
-
     </div >
   );
 }
