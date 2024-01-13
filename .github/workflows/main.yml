@@ -1,23 +1,27 @@
-name: Docker Compose Build and Push
+name: Build and Push Docker Image to Docker Hub
 
 on:
   push:
     branches:
-      - main
+      - githubActions
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker Compose Services
-        run: docker-compose -f ../../compose.yml build
+      - name: Build Docker Compose
+        run: docker-compose build --no-cache --force-rm
 
-      - name: Push Docker Compose Services
-        run: docker-compose -f ../../compose.yml up -d
+      - uses: actions/checkout@v2
+
+      - name: Test Docker Compose
+        run: docker-compose up -d
+
+      
