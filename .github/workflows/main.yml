@@ -1,0 +1,23 @@
+name: Docker Compose Build and Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Compose Services
+        run: docker-compose -f ../../compose.yml build
+
+      - name: Push Docker Compose Services
+        run: docker-compose -f ../../compose.yml up -d
