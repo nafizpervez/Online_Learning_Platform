@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - run: pip install fastapi httpx pytest
+      - run: pip install fastapi httpx pytest sqlalchemy pydantic
       # - uses: actions/checkout@
       - name: Unit Testing
         run: pytest test/test_main.py
@@ -46,9 +46,6 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      
-      - run: docker-compose build backend
-
       - name: push backend into docker hub
         uses: docker/build-push-action@v4
         with:
@@ -58,9 +55,7 @@ jobs:
       
       # - uses: actions/checkout@v3
 
-      - run: docker-compose build frontend
-
-      - name: push backend into docker hub
+      - name: push frontend into docker hub
         uses: docker/build-push-action@v4
         with:
           context: .
