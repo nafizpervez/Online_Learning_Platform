@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  #POSTGRESQL DATABASE
+  postgres:
+    ports:
+      - "5432:5432"
+
+  #POSTGRESQL DATABASE MANAGEMENT TOOL
+  pgadmin:
+    ports:
+      - "5555:80"
+    
+  #FASTAPI BACKEND
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - '.:/code'
+
+  #NEXTJS FRONTEND
+  frontend:
+    build: ./web
+    ports:
+      - "3000:3000"
+
+  #JENKINS PIPELINE WORKFLOW
+  jenkins:
+    ports:
+      - 8080:8080
+      - 50000:50000
