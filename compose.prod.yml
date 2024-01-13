@@ -4,15 +4,12 @@ services:
 
   postgres:
     image: postgres
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 4321
       POSTGRES_DB: online_learning_db
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    restart: unless-stopped
     networks:
       - backend-network
 
@@ -20,45 +17,29 @@ services:
     image: dpage/pgadmin4
     depends_on:
       - postgres
-    ports:
-      - "5555:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: admin
-    restart: unless-stopped
     networks:
       - backend-network
 
   backend:
-    build: .
-    ports:
-      - "8000:8000"
-    restart: unless-stopped
+    image: online_learning_image-backend:latest
     networks:
       - backend-network
 
   frontend:
-    build: ./web
-    ports:
-      - "3000:3000"
+    image: online_learning_image-frontend:latest
     depends_on:
       - backend
       - postgres
-      - pgadmin
-      - jenkins
-    restart: unless-stopped
     networks:
       - backend-network
 
   jenkins:
     image: jenkins/jenkins:lts
-    restart: always
     privileged: true
     user: root
-    ports:
-      - 8080:8080
-      - 50000:50000
-    container_name: jenkins
     environment:
       - "JAVA_OPTS=-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true"
     volumes:
@@ -70,7 +51,6 @@ services:
 
 networks:
   backend-network:
-    driver: bridge
 
 volumes:
   postgres-data:

@@ -9,7 +9,7 @@ services:
   #POSTGRESQL DATABASE MANAGEMENT TOOL
   pgadmin:
     ports:
-      - "5555:80"
+      - "80:80"
     
   #FASTAPI BACKEND
   backend:
@@ -21,7 +21,7 @@ services:
 
   #NEXTJS FRONTEND
   frontend:
-    build: ./web
+    build: ./web/
     ports:
       - "3000:3000"
 
