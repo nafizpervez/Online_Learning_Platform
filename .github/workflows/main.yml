@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - run: pip install fastapi httpx pytest sqlalchemy pydantic
+      - run: pip install fastapi httpx pytest sqlalchemy pydantic psycopg2 uvicorn
       # - uses: actions/checkout@
       - name: Unit Testing
         run: pytest test/test_main.py
