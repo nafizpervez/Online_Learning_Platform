@@ -24,19 +24,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      
 
-      - name: Test Docker Compose Image
+      - name: Run Docker Compose Image
         run: docker-compose up -d
 
   test:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       # - uses: actions/checkout@v3
       - run: pip install pytest
       - name: Unit Testing
-        run: pytest ./test/test_main.py
+        run: pytest /test/test_main.py
     
   push:
     runs-on: ubuntu-latest
