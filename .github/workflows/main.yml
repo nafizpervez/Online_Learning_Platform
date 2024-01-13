@@ -3,7 +3,7 @@ name: Build and Push Docker Image to Docker Hub
 on:
   push:
     branches:
-      - githubActions
+      - main
 
 jobs:
   build:
@@ -16,12 +16,12 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker Compose
+      - name: Build Docker Compose Image
         run: docker-compose build --no-cache --force-rm
 
       - uses: actions/checkout@v2
 
-      - name: Test Docker Compose
+      - name: Test Docker Compose Image
         run: docker-compose up -d
 
       
