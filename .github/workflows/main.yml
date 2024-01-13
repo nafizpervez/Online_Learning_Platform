@@ -17,7 +17,8 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Compose Image
-        run: docker-compose build --no-cache --force-rm
+        run: docker-compose build 
+        # --no-cache --force-rm
       
   run:
     runs-on: ubuntu-latest
@@ -35,7 +36,7 @@ jobs:
       # - uses: actions/checkout@v3
       - run: pip install pytest
       - name: Unit Testing
-        run: pytest test/test_main.py
+        run: pytest ./test/test_main.py
     
   push:
     runs-on: ubuntu-latest
