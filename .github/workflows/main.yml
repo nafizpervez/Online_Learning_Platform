@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      
+      - uses: actions/checkout@v2
 
       - name: Run Docker Compose Image
         run: docker-compose up -d
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # - uses: actions/checkout@v3
       - run: pip install pytest
       - name: Unit Testing
@@ -43,6 +43,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       - run: docker-compose build backend
 
       - name: push backend into docker hub
