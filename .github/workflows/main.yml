@@ -52,8 +52,6 @@ jobs:
           context: .
           push: true
           tags: nafizpervez/online_learning_platform:backend
-      
-      # - uses: actions/checkout@v3
 
       - name: push frontend into docker hub
         uses: docker/build-push-action@v4
@@ -61,3 +59,17 @@ jobs:
           context: .
           push: true
           tags: nafizpervez/online_learning_platform:frontend
+
+      - name: push postgres into docker hub
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: nafizpervez/online_learning_platform:postgres
+
+      - name: push pgadmin into docker hub
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: nafizpervez/online_learning_platform:pgadmin
