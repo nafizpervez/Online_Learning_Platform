@@ -18,7 +18,6 @@ jobs:
       - name: Build Docker Compose Image
         run: |
           docker-compose build --no-cache --force-rm
-          docker-compose up -d
 
   test:
     needs: build
