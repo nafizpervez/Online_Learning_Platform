@@ -1,102 +1,102 @@
-#Github Action
+# #Github Action For Docker hub Pushing
 
-name: Build, Push Docker Image to Docker Hub and deploy
+# name: Build, Push Docker Image to Docker Hub and deploy
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Git Repository
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Checkout Git Repository
+#         uses: actions/checkout@v3
 
-      - name: Build Docker Compose Image
-        run: |
-          docker-compose build 
+#       - name: Build Docker Compose Image
+#         run: |
+#           docker-compose build
 
-          # --no-cache --force-rm
+#           # --no-cache --force-rm
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
+#   test:
+#     needs: build
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - run: pip install fastapi httpx pytest sqlalchemy pydantic psycopg2 uvicorn
+#       - run: pip install fastapi httpx pytest sqlalchemy pydantic psycopg2 uvicorn
 
-      - name: Unit Testing
-        run: pytest test/test_main.py
+#       - name: Unit Testing
+#         run: pytest test/test_main.py
 
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+#   deploy:
+#     needs: test
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+#       - name: Login to Docker Hub
+#         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: push backend into docker hub
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: nafizpervez/online_learning_platform:backend
+#       - name: push backend into docker hub
+#         uses: docker/build-push-action@v4
+#         with:
+#           context: .
+#           push: true
+#           tags: nafizpervez/online_learning_platform:backend
 
-      - name: push frontend into docker hub
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: nafizpervez/online_learning_platform:frontend
+#       - name: push frontend into docker hub
+#         uses: docker/build-push-action@v4
+#         with:
+#           context: .
+#           push: true
+#           tags: nafizpervez/online_learning_platform:frontend
 
-      - name: push postgres into docker hub
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: nafizpervez/online_learning_platform:postgres
+#       - name: push postgres into docker hub
+#         uses: docker/build-push-action@v4
+#         with:
+#           context: .
+#           push: true
+#           tags: nafizpervez/online_learning_platform:postgres
 
-      - name: push pgadmin into docker hub
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: nafizpervez/online_learning_platform:pgadmin
+#       - name: push pgadmin into docker hub
+#         uses: docker/build-push-action@v4
+#         with:
+#           context: .
+#           push: true
+#           tags: nafizpervez/online_learning_platform:pgadmin
 
-      - name: starting docker deamon
-        run: sudo service docker start
+#       - name: starting docker deamon
+#         run: sudo service docker start
 
-      - name: set permission for aws private key
-        run: |
-          echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
-          chmod 600 key.pem
+#       - name: set permission for aws private key
+#         run: |
+#           echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
+#           chmod 600 key.pem
 
-      - name: pull docker composer images from docker hub
-        run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:backend'
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:frontend'
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:postgres'
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:pgadmin'
+#       - name: pull docker composer images from docker hub
+#         run: |
+#           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:backend'
+#           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:frontend'
+#           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:postgres'
+#           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:pgadmin'
 
-      - name: stop running compose containers
-        run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker-compose stop'
+#       - name: stop running compose containers
+#         run: |
+#           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker-compose stop'
 
-      - name: deploy to ec2 instance
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.AWS_EC2_HOST }}
-          username: ${{ secrets.AWS_EC2_USERNAME }}
-          key: ${{ secrets.AWS_PRIVATE_KEY }}
-          script: |
-            docker-compose up -d --build backend
-            docker-compose up -d --build postgres
-            docker-compose up -d --build pgadmin
-            docker run -d -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend
+#       - name: deploy to ec2 instance
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.AWS_EC2_HOST }}
+#           username: ${{ secrets.AWS_EC2_USERNAME }}
+#           key: ${{ secrets.AWS_PRIVATE_KEY }}
+#           script: |
+#             docker-compose up -d --build backend
+#             docker-compose up -d --build postgres
+#             docker-compose up -d --build pgadmin
+#             docker run -d -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend

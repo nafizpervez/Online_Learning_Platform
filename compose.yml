@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.12'
 
 services:
 
@@ -27,20 +27,18 @@ services:
       - "80:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_PASSWORD: admin9
     restart: unless-stopped
 
   #FASTAPI BACKEND 
   backend:
     image: backend
-    build: .
     ports:
       - "8000:8000"
 
   #NEXTJS FRONTEND
   frontend:
     image: frontend
-    build: ./web/
     ports:
       - "3000:3000"
     depends_on:
@@ -61,7 +59,6 @@ services:
   #     - /home/ubuntu/jenkins_compose/jenkins_configuration:/var/jenkins_home
   #     - /var/run/docker.sock:/var/run/docker.sock
   #     - .:/usr/code
-
 
 volumes:
   postgres-data:

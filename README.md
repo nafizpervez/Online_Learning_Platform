@@ -13,13 +13,13 @@ docker compose up
 build newer image command:
 
 ```
-docker build -t  online_learning_image .
+docker build -t  backend .
 ```
 
 docker run command:
 
 ```
-docker run -d --name demo_python -p 8000:8000 online_learning_image
+docker run -d --name OLP_Backend -p 8000:8000 backend
 ```
 
 remove older image command:

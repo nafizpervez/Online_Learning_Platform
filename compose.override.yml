@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.12'
 
 services:
   #POSTGRESQL DATABASE
@@ -13,7 +13,7 @@ services:
 
   #FASTAPI BACKEND
   backend:
-    build: .
+    build: ./backend/
     ports:
       - "8000:8000"
     volumes:
