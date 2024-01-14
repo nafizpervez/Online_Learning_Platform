@@ -4,6 +4,9 @@ FROM node:20
 # Set the working directory inside the container
 WORKDIR /usr/src/web
 
+#cleaning cache
+RUN npm run clean_next && npm run clean_node_modules
+
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
