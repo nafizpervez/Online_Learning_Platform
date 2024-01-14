@@ -17,24 +17,28 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
+      - frontend
 
   #POSTGRESQL DATABASE MANAGEMENT TOOL
-  pgadmin:
-    image: dpage/pgadmin4
-    depends_on:
-      - postgres
-    ports:
-      - "80:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
-      PGADMIN_DEFAULT_PASSWORD: admin9
-    restart: unless-stopped
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - "80:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+  #     PGADMIN_DEFAULT_PASSWORD: admin9
+  #   restart: unless-stopped
 
   #FASTAPI BACKEND 
   backend:
     image: backend
     ports:
       - "8000:8000"
+    depends_on:
+      - postgres
+      - frontend
 
   #NEXTJS FRONTEND
   frontend:
@@ -42,6 +46,7 @@ services:
     ports:
       - "3000:3000"
     depends_on:
+      - backend
       - postgres
   #JENKINS PIPELINE WORKFLOW
   # jenkins:

@@ -6,10 +6,10 @@ services:
     ports:
       - "5432:5432"
 
-  #POSTGRESQL DATABASE MANAGEMENT TOOL
-  pgadmin:
-    ports:
-      - "80:80"
+  # #POSTGRESQL DATABASE MANAGEMENT TOOL
+  # pgadmin:
+  #   ports:
+  #     - "80:80"
 
   #FASTAPI BACKEND
   backend:
