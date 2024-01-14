@@ -10,7 +10,7 @@ COPY package*.json ./
 # Install project dependencies
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application code from two directory
 COPY . .
 
 # Build the Next.js application
