@@ -109,7 +109,7 @@ jobs:
 
           - name: run new docker compose in the ec2 instance
             run: |
-              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d'
-              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker run -d --name online_learning_platform -p 80:3000 nafizpervez/online_learning_platform:frontend'
-
-
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d --build backend'
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d --build postgres'
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d --build pgadmin'
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker run -d --name online_learning_platform -p 8080:3000 nafizpervez/online_learning_platform:frontend'
