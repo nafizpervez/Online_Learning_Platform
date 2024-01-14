@@ -16,8 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Docker Compose Image
-        run: docker-compose build
-        # --no-cache --force-rm
+        run: docker-compose build --no-cache --force-rm
 
   run:
     runs-on: ubuntu-latest
@@ -119,4 +118,4 @@ jobs:
             sudo docker-compose up -d --build backend
             sudo docker-compose up -d --build postgres
             sudo docker-compose up -d --build pgadmin
-            sudo docker run -d --name frontend -p 8080:3000 ${{ secrets.DOCKER_USERNAME }}/frontend
+            sudo docker run -d --name online_learning_platform -p 8080:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend
