@@ -26,13 +26,6 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: push backend into docker hub
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: nafizpervez/online_learning_platform:backend
-
       - name: starting docker deamon
         run: sudo service docker start
       - name: set permission for aws private key
@@ -53,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Git Repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Login to Docker Hub
@@ -66,9 +59,11 @@ jobs:
         run: |
           echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
+      
       - name: stop running compose containers
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker-compose stop'
+      
       - name: deploy to ec2 instance
         uses: appleboy/ssh-action@master
         with:

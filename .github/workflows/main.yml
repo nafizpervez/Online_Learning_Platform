@@ -15,13 +15,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - run: docker system prune -a -f
-
       - name: Build Docker Compose Image
         run: |
-          docker-compose build
-
-          # --no-cache --force-rm
+          docker-compose build --no-cache --force-rm
 
   test:
     needs: build
