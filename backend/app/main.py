@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException, Query, Depends, FastAPI, HTTPException
-from models import models
-from schemas import schemas
-from controller import controller
-from database.database import  create_database_connection
+from .models import models
+from .schemas import schemas
+from .controller import controller
+from .database.database import create_database_connection
 from fastapi.middleware.cors import CORSMiddleware
 
 
