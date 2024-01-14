@@ -10,7 +10,7 @@ services:
   pgadmin:
     ports:
       - "80:80"
-    
+
   #FASTAPI BACKEND
   backend:
     build: .
@@ -24,9 +24,8 @@ services:
     build: ./web/
     ports:
       - "3000:3000"
-
-  #JENKINS PIPELINE WORKFLOW
-  jenkins:
-    ports:
-      - 8080:8080
-      - 50000:50000
+  # #JENKINS PIPELINE WORKFLOW
+  # jenkins:
+  #   ports:
+  #     - 8080:8080
+  #     - 50000:50000
