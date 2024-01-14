@@ -32,7 +32,7 @@ jobs:
       - name: Unit Testing
         run: pytest test/test_main.py
 
-  push:
+  deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -69,14 +69,6 @@ jobs:
           push: true
           tags: nafizpervez/online_learning_platform:pgadmin
 
-  pull_deploy:
-    needs: [push, build]
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v2
-      - name: login into docker hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: set permission for aws private key
         run: |
           echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
@@ -100,7 +92,5 @@ jobs:
           username: ${{ secrets.AWS_EC2_USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
-            docker-compose up -d --build backend
-            docker-compose up -d --build postgres
-            docker-compose up -d --build pgadmin
-            docker run -d --name frontend -p 88:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend
+            docker-compose up -d
+            docker run -d --name deployed_UI -p 88:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend
