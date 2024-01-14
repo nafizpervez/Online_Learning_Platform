@@ -1,9 +1,9 @@
 import pytest
 import json
 from fastapi.testclient import TestClient
-from app.models import models
-from app.database.database import create_database_connection
-from app.main import app, get_db
+from backend.app.models import models
+from backend.app.database.database import create_database_connection
+from backend.app.main import app, get_db
 
 engine, session = create_database_connection(db_type='sqlite')
 
