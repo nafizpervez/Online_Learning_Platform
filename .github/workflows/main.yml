@@ -41,7 +41,6 @@ jobs:
 
   push:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -77,9 +76,7 @@ jobs:
           tags: nafizpervez/online_learning_platform:pgadmin
 
     deploy:
-      needs: push
-      runs-on: ubuntu-latest
-
+      runs-on: AL2
         steps:
           - name: checkout code
             uses: actions/checkout@v2
