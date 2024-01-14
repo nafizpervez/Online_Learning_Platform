@@ -17,7 +17,6 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
-      - frontend
 
   #POSTGRESQL DATABASE MANAGEMENT TOOL
   # pgadmin:
@@ -36,9 +35,6 @@ services:
     image: backend
     ports:
       - "8000:8000"
-    depends_on:
-      - postgres
-      - frontend
 
   #NEXTJS FRONTEND
   frontend:
