@@ -1,1 +1,81 @@
-#Github Action For aws deployment
+#Github Action For Docker deploy aws
+
+name: pull and deploy Docker Image to aws
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Git Repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker Compose Image
+        run: |
+          docker-compose build
+
+          # --no-cache --force-rm#Github Action For aws deployment
+
+      - uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: push backend into docker hub
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: nafizpervez/online_learning_platform:backend
+
+      - name: starting docker deamon
+        run: sudo service docker start
+      - name: set permission for aws private key
+        run: |
+          echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
+          chmod 600 key.pem
+
+      - name: pull docker composer images from docker hub
+        run: |
+          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:backend_image'
+          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:frontend_image'
+          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:postgres_image'
+
+      - name: stop running compose containers
+        run: |
+          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker-compose stop'
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Git Repository
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: starting docker deamon
+        run: sudo service docker start
+
+      - name: set permission for aws private key
+        run: |
+          echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
+          chmod 600 key.pem
+      - name: stop running compose containers
+        run: |
+          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker-compose stop'
+      - name: deploy to ec2 instance
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_EC2_HOST }}
+          username: ${{ secrets.AWS_EC2_USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          script: |
+            docker-compose up -d --build backend
+            docker-compose up -d --build postgres
+            docker run -d -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend
