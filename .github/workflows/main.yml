@@ -118,4 +118,4 @@ jobs:
             sudo docker-compose up -d --build backend
             sudo docker-compose up -d --build postgres
             sudo docker-compose up -d --build pgadmin
-            sudo docker run -d --name frontend -p 8080:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend
+            sudo docker run -d --name frontend -p 88:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend
