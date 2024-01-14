@@ -23,7 +23,7 @@ services:
   frontend:
     build: ./web/
     ports:
-      - "3000:3000"
+      - "80:3000"
   # #JENKINS PIPELINE WORKFLOW
   # jenkins:
   #   ports:
