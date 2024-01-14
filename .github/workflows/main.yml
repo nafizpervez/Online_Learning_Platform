@@ -70,7 +70,7 @@ jobs:
           tags: nafizpervez/online_learning_platform:pgadmin
 
   pull_deploy:
-    needs: push
+    needs: [push, build]
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
