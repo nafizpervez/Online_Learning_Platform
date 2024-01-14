@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - run: docker builder prune -af
+      - run: docker system prune -a
 
       - name: Build Docker Compose Image
         run: |
