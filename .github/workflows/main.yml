@@ -99,7 +99,6 @@ jobs:
 
   deploy:
     runs-on: self-hosted
-    container: amazonlinux
     steps:
       - name: checkout code
         uses: actions/checkout@v2
@@ -109,7 +108,13 @@ jobs:
         run: |
           echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
-      - name: run new docker compose in the ec2 instance
+
+      - name: deploy to ec2 instance
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_EC2_HOST }}
+          username: ${{ secrets.AWS_EC2_USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d --build backend'
           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d --build postgres'
