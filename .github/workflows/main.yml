@@ -5,7 +5,12 @@ name: Build and Push Docker Image to Docker Hub
 on:
   push:
     branches:
-      - master
+      - main
+
+env:
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  AWS_PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
 
 jobs:
   build:
@@ -16,9 +21,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Docker Compose Image
-        run: docker-compose build 
+        run: docker-compose build
         # --no-cache --force-rm
-      
+
   run:
     runs-on: ubuntu-latest
 
@@ -33,13 +38,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - run: pip install fastapi httpx pytest sqlalchemy pydantic psycopg2 uvicorn
       # - uses: actions/checkout@
       - name: Unit Testing
         run: pytest test/test_main.py
-    
-  push:
+
+  push_into_dockerhub:
     runs-on: ubuntu-latest
 
     steps:
@@ -75,3 +80,36 @@ jobs:
           context: .
           push: true
           tags: nafizpervez/online_learning_platform:pgadmin
+
+    pull_and_deploy:
+      needs: push_into_dockerhub
+      runs-on: ubuntu-latest
+
+        steps:
+          - name: checkout code
+            uses: actions/checkout@v2
+          - name: login into docker hub
+            uses: docker/login-action@v1
+            with:
+              username: ${{ env.DOCKERHUB_USERNAME }}
+              password: ${{ env.DOCKERHUB_PASSWORD }}
+          - name: set permission for aws private key
+            run: |
+              echo "${{ env.AWS_PRIVATE_KEY }}" > key.pem
+              chmod 600 key.pem
+          - name: pull docker composer images from docker hub
+            run: |
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker pull nafizpervez/online_learning_platform:backend'
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker pull nafizpervez/online_learning_platform:frontend'
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker pull nafizpervez/online_learning_platform:postgres'
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker pull nafizpervez/online_learning_platform:pgadmin'
+          - name: stop running compose containers 
+            run: |
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose stop || true'
+
+          - name: run new docker compose in the ec2 instance
+            run: |
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d'
+              ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker run -d --name online_learning_platform -p 80:3000 nafizpervez/online_learning_platform:frontend'
+
+
