@@ -98,7 +98,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose stop'
 
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: checkout code
         uses: actions/checkout@v2
