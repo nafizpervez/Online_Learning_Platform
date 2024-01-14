@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - run: pip install fastapi httpx pytest sqlalchemy pydantic psycopg2 uvicorn
 
@@ -41,7 +41,7 @@ jobs:
   push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -100,7 +100,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: login into docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: set permission for aws private key
@@ -118,4 +118,4 @@ jobs:
             sudo docker-compose up -d --build backend
             sudo docker-compose up -d --build postgres
             sudo docker-compose up -d --build pgadmin
-            sudo docker run -d --name online_learning_platform -p 8080:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend
+            sudo docker run -d --name frontend -p 8080:3000 ${{ secrets.DOCKER_USERNAME }}/online_learning_platform:frontend
