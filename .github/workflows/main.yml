@@ -40,6 +40,9 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: starting docker deamon
+        run: sudo service docker start
+
       - name: push backend into docker hub
         uses: docker/build-push-action@v4
         with:
