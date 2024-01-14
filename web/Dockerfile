@@ -7,10 +7,6 @@ WORKDIR /usr/src/web
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-#cleaning cache
-RUN npm run clean_next
-RUN npm run clean_node_modules
-
 # Install project dependencies
 RUN npm install
 
