@@ -37,9 +37,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: starting docker deamon
-        run: sudo service docker start
-
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
@@ -71,10 +68,14 @@ jobs:
           push: true
           tags: nafizpervez/online_learning_platform:pgadmin
 
+      - name: starting docker deamon
+        run: sudo service docker start
+
       - name: set permission for aws private key
         run: |
           echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
+
       - name: pull docker composer images from docker hub
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'docker pull nafizpervez/online_learning_platform:backend'
