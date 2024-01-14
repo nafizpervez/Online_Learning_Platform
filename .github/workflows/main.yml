@@ -17,6 +17,7 @@ jobs:
 
       - name: Build Docker Compose Image
         run: |
+          docker system prune -a
           docker-compose build --no-cache --force-rm
 
   test:
