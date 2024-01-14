@@ -10,6 +10,7 @@ COPY ./requirements.txt /code/requirements.txt
 # Install project dependencies
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
+RUN pwd
 # Copy the rest of the application code
 COPY ./app /code/app
 

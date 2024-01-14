@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: pip install fastapi httpx pytest sqlalchemy pydantic psycopg2 uvicorn
-      # - uses: actions/checkout@
+
       - name: Unit Testing
         run: pytest test/test_main.py
 
@@ -119,4 +119,4 @@ jobs:
             sudo docker-compose up -d --build backend
             sudo docker-compose up -d --build postgres
             sudo docker-compose up -d --build pgadmin
-            sudo docker run -d --name online_learning_platform -p 8080:3000 ${{ secrets.AWS_EC2_HOST }}/frontend:${{ github.sha }}
+            sudo docker run -d --name frontend -p 8080:3000 ${{ secrets.DOCKER_USERNAME }}/frontend:${{ github.sha }}
