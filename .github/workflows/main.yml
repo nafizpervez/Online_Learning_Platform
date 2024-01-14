@@ -1,6 +1,6 @@
 #Github Action
 
-name: Build and Push Docker Image to Docker Hub
+name: Build, Push Docker Image to Docker Hub and deploy
 
 on:
   push:
@@ -77,7 +77,7 @@ jobs:
           tags: nafizpervez/online_learning_platform:pgadmin
 
     deploy:
-      needs: push_into_dockerhub
+      needs: push
       runs-on: ubuntu-latest
 
         steps:
