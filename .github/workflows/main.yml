@@ -7,11 +7,6 @@ on:
     branches:
       - main
 
-env:
-  DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  AWS_PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,7 +39,7 @@ jobs:
       - name: Unit Testing
         run: pytest test/test_main.py
 
-  push_into_dockerhub:
+  push:
     runs-on: ubuntu-latest
 
     steps:
@@ -81,7 +76,7 @@ jobs:
           push: true
           tags: nafizpervez/online_learning_platform:pgadmin
 
-    pull_and_deploy:
+    deploy:
       needs: push_into_dockerhub
       runs-on: ubuntu-latest
 
@@ -89,13 +84,10 @@ jobs:
           - name: checkout code
             uses: actions/checkout@v2
           - name: login into docker hub
-            uses: docker/login-action@v1
-            with:
-              username: ${{ env.DOCKERHUB_USERNAME }}
-              password: ${{ env.DOCKERHUB_PASSWORD }}
+            run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           - name: set permission for aws private key
             run: |
-              echo "${{ env.AWS_PRIVATE_KEY }}" > key.pem
+              echo "${{ secrets.AWS_PRIVATE_KEY }}" > key.pem
               chmod 600 key.pem
           - name: pull docker composer images from docker hub
             run: |
