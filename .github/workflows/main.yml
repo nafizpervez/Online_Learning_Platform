@@ -115,8 +115,8 @@ jobs:
           host: ${{ secrets.AWS_EC2_HOST }}
           username: ${{ secrets.AWS_EC2_USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
-        run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d --build backend'
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d --build postgres'
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker-compose up -d --build pgadmin'
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@13.126.198.61 'sudo docker run -d --name online_learning_platform -p 8080:3000 nafizpervez/online_learning_platform:frontend'
+        script: |
+          sudo docker-compose up -d --build backend
+          sudo docker-compose up -d --build postgres
+          sudo docker-compose up -d --build pgadmin
+          sudo docker run -d --name online_learning_platform -p 8080:3000 ${{ secrets.AWS_EC2_HOST }}/frontend:${{ github.sha }}
