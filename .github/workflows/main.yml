@@ -43,11 +43,6 @@ jobs:
       - name: starting docker deamon
         run: sudo service docker start
 
-      - name: docker compose start all images in background
-        run: |
-          docker-compose up -d
-          
-
       - name: push backend into docker hub
         uses: docker/build-push-action@v4
         with:

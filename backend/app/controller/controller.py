@@ -1,8 +1,8 @@
 from fastapi import HTTPException, Query, Depends
 from sqlalchemy import func, delete
 from sqlalchemy.orm import session
-from backend.app.models import models
-from backend.app.schemas import schemas
+from app.models import models
+from app.schemas import schemas
 
 
 ##-------------Validation Starts------------------##
