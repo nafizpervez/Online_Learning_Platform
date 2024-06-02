@@ -1,4 +1,6 @@
-# Online_Learning_Platform_BE
+# Online Learning Platform
+
+a composed image developed using fastapi and next.js, containerization using docker, database adapter initialized with postgres and sqlite databases and CI/CD intigration using Github-Actions also Jenkins as an alternative.
 
 ## Build Steps for the whole container (backend, postgres, pgadmin)
 
