@@ -1,6 +1,12 @@
 # Online Learning Platform
 
-a composed image developed using fastapi and next.js, containerization using docker, database adapter initialized with postgres and sqlite databases and CI/CD intigration using Github-Actions also Jenkins as an alternative.
+A full-stack Online Learning Platform designed for publishing and managing online courses where students register, attend classes, and take scheduled tests, while teachers conduct and manage multiple courses. A structured scheduling system ensures students cannot join overlapping sessions, promoting disciplined learning.
+
+The platform features a clean and intuitive Next.js frontend with a robust FastAPI backend, fully testable through Swagger UI and Postman. Database support includes both PostgreSQL and MySQL, with SQLAlchemy adapters enabling seamless switching between databases.
+
+To ensure scalability and reliability, the entire system is containerized using Docker and Docker Compose, with CI/CD pipelines powered by GitHub Actions and Jenkins as an alternative. Database validation and monitoring are facilitated through pgAdmin (Postgres) and SQL readers (MySQL).
+
+This project highlights expertise in modern web application development, combining scalable architecture, seamless DevOps integration, and user-focused design.
 
 ## Build Steps for the whole container (backend, postgres, pgadmin)
 
